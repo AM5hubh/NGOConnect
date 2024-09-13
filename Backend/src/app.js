@@ -13,7 +13,22 @@ app.use(express.json({limit: "16kb"}))
 app.use(express.urlencoded({extended: true, limit: "16kb "}))
 app.use(express.static('public'))
 app.use(cookieParser())
+app.use(function(req, res, next) {
+    res.header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS');
+       next();
+ });
 
+ app.use((err, req, res, next) => {
+    if (err instanceof ApiError) {
+      return res.status(err.statusCode).json({
+        statusCode: err.statusCode,
+        message: err.message, // Error messages
+        errors: err.errors,   // Specific errors if any
+      });
+    }
+  
+    return res.status(500).json({ message: "An unexpected error occurred" });
+  });
 
 //routes import
 
