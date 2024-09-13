@@ -213,51 +213,26 @@ function Signup() {
         email,
         username,
         password,
-        // coverImage,
-        // avatar,
       });
-      
-      console.log(formData)
-      const errorMessage =
-        res.err.response?.data?.message || 
-        res.err.response?.data?.errors?.[0]?.msg || // If there are specific validation errors
-        res.err.message || 
-        "Something went wrong. Please try again.";
-        
-        if (res.err) {
-          console.log("hello")
-          toast.error("toast",errorMessage);
-        console.log("error", errorMessage);
-      } else {
-        // setFormData({});
-        // toast.success(res.response);
-        // console.log("success", formData.response);
-        toast.success("User registered successfully!");
-        navigate("/login");
-      }
-      // Success notification
-      
 
-      // Optional: Navigate to another page on successful registration
-      // navigate("/login");
-      // Your code that may throw an error
-  } catch (err) {
+      // If the registration is successful
+      toast.success("User registered successfully!");
+      navigate("/login"); // Redirect to login after successful registration
+    } catch (err) {
       // Extract the error message from the response
       const errorMessage =
-          err.response?.data?.message || 
-          err.response?.data?.errors?.[0]?.msg || // Specific validation errors
-          err.message || 
-          "Something went wrong. Please try again.";
-          // let message = defaultErrorMessage;
-          
-        
-          // Log the error response for debugging
-          console.error('Error response:', err.response?.data);
-        
-          // Show error using toast (assuming toast is properly set up)
-          toast.error(err.response?.data.Error);
-  }
-  
+        err.response?.data?.message || // Backend error message
+        err.response?.data?.errors?.[0]?.msg || // Specific validation error (if any)
+        err.message || // Axios error message
+        "Something went wrong. Please try again."; // Default fallback message
+
+      // Log the error for debugging (optional)
+      console.error("Error response:", err.response?.data.messagetext);
+      console.error("Error response:", err.response);
+
+      // Display error using toast (assuming toast is properly set up)
+      toast.error(err.response?.data.messagetext);
+    }
   };
 
   return (

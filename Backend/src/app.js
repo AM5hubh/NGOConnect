@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
+import { errorHandler } from "./middlewares/errorHandler.js"
 
 const app = express()
 
@@ -18,17 +19,19 @@ app.use(function(req, res, next) {
        next();
  });
 
- app.use((err, req, res, next) => {
-    if (err instanceof ApiError) {
-      return res.status(err.statusCode).json({
-        statusCode: err.statusCode,
-        message: err.message, // Error messages
-        errors: err.errors,   // Specific errors if any
-      });
-    }
+app.use(errorHandler);
+
+//  app.use((err, req, res, next) => {
+//     if (err instanceof ApiError) {
+//       return res.status(err.statusCode).json({
+//         statusCode: err.statusCode,
+//         message: err.message, // Error messages
+//         errors: err.errors,   // Specific errors if any
+//       });
+//     }
   
-    return res.status(500).json({ message: "An unexpected error occurred" });
-  });
+//     return res.status(500).json({ message: "An unexpected error occurred" });
+//   });
 
 //routes import
 

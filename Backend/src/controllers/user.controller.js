@@ -42,8 +42,11 @@ const registerUser = asyncHandler(async (req, res) => {
   if (
     [fullname, email, username, password].some((field) => field?.trim() === "")
   ) {
-    throw new ApiError(400, "All fields are reqired");
-    
+    // throw new ApiError(400, "All fields are reqired");
+    return res.status(400).json( new ApiError(400, "All fields are reqired"))
+    // return res.status(400).json({
+    //   message: "All fields are reqired"
+    // });
   }
 
   const existedUser = await User.findOne({
@@ -52,8 +55,10 @@ const registerUser = asyncHandler(async (req, res) => {
   //   console.log(existedUser);
   if (existedUser) {
     // res.send("error username  ")
-    
-    throw new ApiError(409, "User with Username or Email already exists");
+    return res.status(409).json( new ApiError("User with Username or Email already exists", 409 ))
+    // return res.status(409).json({
+    //   message: "User with Username or Email already exists"
+    // });
   }
   //images
   // const avatarLocalPath = req.files.avatar[0].path; 0000
@@ -98,7 +103,12 @@ const registerUser = asyncHandler(async (req, res) => {
   );
 
   if (!createdUser) {
-    throw new ApiError(500, "Something went wrong while registration user");
+    // throw new ApiError(500, "Something went wrong while registration user");
+    // return res.status(409).json({
+    //   message: "Something went wrong while registration user"
+    // });
+    return res.status(409).json( new ApiError( "Something went wrong while registration user",409))
+
   }
 
   return res
