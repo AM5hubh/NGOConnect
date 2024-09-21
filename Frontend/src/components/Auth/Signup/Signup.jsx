@@ -31,7 +31,7 @@ function Signup() {
 
     try {
       // Send POST request to backend for user registration
-      const res = await axios.post("http://localhost:8000/api/v1/users/register", {
+      await axios.post("http://localhost:8000/api/v1/users/register", {
         fullname,
         email,
         username,
@@ -60,7 +60,7 @@ function Signup() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
+    <div className="p-6 flex justify-evenly min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <h2 className="text-2xl font-bold text-center mb-6">NGO Signup</h2>
         <form onSubmit={handleSubmit}>
@@ -147,6 +147,13 @@ function Signup() {
             Sign Up
           </button>
         </form>
+        <p className="text-center text-gray-500 mt-4">
+          Already have an account? <Link to={"/login"} className="text-blue-600">Login</Link>
+          
+        </p>
+      </div>
+      <div className="min-h-screen p-6 w-4/5 bg-contain flex justify-center items-center">
+        <img className="h-full w-4/5" src="https://images.pexels.com/photos/6646870/pexels-photo-6646870.jpeg?auto=compress&cs=tinysrgb&w=600" />
       </div>
     </div>
   );
