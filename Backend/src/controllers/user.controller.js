@@ -127,7 +127,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
 
   if (!(username || email)) {
-    throw new ApiError(400, "Username or email required");
+    return res.status(400).json( new ApiError(400, "Username or email required"));
   }
 
   const user = await User.findOne({
@@ -135,13 +135,13 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    throw new ApiError(400, "User does not exist");
+    return res.status(400).json( new ApiError(400, "User does not exist"));
   }
 
   const isPasswordvalid = await user.isPasswordCorrect(password);
 
   if (!isPasswordvalid) {
-    throw new ApiError(401, "Invalid user credentials");
+    return res.status(401).json( new ApiError(401, "Invalid user credentials"));
   }
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
@@ -248,4 +248,14 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken };
+const getCurrentUser = asyncHandler(async(req, res) => {
+  return res
+  .status(200)
+  .json(new ApiResponse(
+      200,
+      req.user,
+      "User fetched successfully"
+  ))
+})
+
+export { registerUser, loginUser, logoutUser, refreshAccessToken,getCurrentUser };
