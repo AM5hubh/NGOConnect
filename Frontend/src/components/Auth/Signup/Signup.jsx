@@ -330,9 +330,10 @@ function Signup() {
             </button>
           </form>
           <p className="text-center text-gray-500 mt-4">
-            <a href="/login" className="text-black">
+            {/* <a href="/login" className="text-black">
               I already have an account
-            </a>
+            </a> */}
+            <Link to={"/login"}>I already have an account</Link>
           </p>
         </div>
       </div>
