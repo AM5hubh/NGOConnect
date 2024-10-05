@@ -1,37 +1,24 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from "react";
 // import axios from 'axios';
-import CarouselComponent from '../CarouselComponent/CarouselComponent.jsx';
-import { UserContext } from '../../../context/userContext.jsx';
+import CarouselComponent from "../CarouselComponent/CarouselComponent.jsx";
+import { UserContext } from "../../../context/userContext.jsx";
+import About from "../About/About.jsx";
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext);
-  
+
   return (
-    <div className="bg-gray-100 min-h-screen">
+    <div className=" bg-[#f3f2f3]">
       {/* <header className="bg-blue-600 text-white p-4 text-center">
         <h1 className="text-3xl font-bold">Welcome to My Website</h1>
       </header> */}
-      <main className="p-4">
+      <main className=" px-10">
         <CarouselComponent />
-        <div>
-      {user ? (
-        <div>
-          <h1>Welcome, {user.fullname}!</h1>
-          <p>Email: {user.email}</p>
-        </div>
-      ) : (
-        <h1>Loading user data...</h1>
-      )}
-    </div>
-        {/* {! !user && (<h1>{user.email}</h1>)} */}
-        {/* <section className="mt-8 text-center">
-          <h2 className="text-2xl font-semibold">About Us</h2>
-          <p className="mt-4 text-lg">
-            This is a sample homepage created using React and Tailwind CSS.
-          </p>
-        </section> */}
+        
       </main>
-      
+      <div className="p-4 px-10 mt-8 bg-[#e0dce0]">
+          <About />
+        </div>
     </div>
   );
 };

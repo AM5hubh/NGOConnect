@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export const UserContext = createContext({});
 
@@ -34,19 +35,19 @@ export function UserContextProvider({ children }) {
   // Logout function to log the user out
   const logout = async () => {
     try {
-      await axios.post(
-        "http://localhost:8000/api/v1/users/logout", 
-        {}, 
-        { headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          }, } // Ensures that cookies are included
-      );
+      // await axios.post(
+      //   "http://localhost:8000/api/v1/users/logout", 
+      //   {}, 
+      //   { headers: {
+      //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      //     }, } // Ensures that cookies are included
+      // );
 
       // Clear user data and localStorage tokens
       localStorage.removeItem("accessToken");
       setUser(null); // Reset the user state after logout
 
-      console.log("User logged out successfully");
+      toast.success("User logged out successfully");
     } catch (error) {
       console.error("Error logging out:", error);
     }

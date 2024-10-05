@@ -22,9 +22,14 @@ const userSchema = new Schema(
     fullname: {
       type: String,
       required: true,
-      trim: true,
       index: true, //for search optimisation
     },
+    // role: {
+    //   type: String,
+    //   trim: true,
+    //   required: true,
+    //   index: true, //for search optimisation
+    // },
     // avatar: {
     //   type: String, //cloudinary url
     // },

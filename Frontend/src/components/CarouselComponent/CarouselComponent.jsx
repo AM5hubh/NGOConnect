@@ -11,20 +11,20 @@ const CarouselComponent = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
   };
 
   return (
-    <div className="w-full max-w-screen-lg mx-auto">
+    <div className="w-11/12 mx-auto">
       <Slider {...settings}>
         <div>
-          <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1725100341/ehsex6zdjqffkwpgy9kz.png" alt="Slide 1" className="w-full h-auto object-contain"/>
+          <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728146712/wwivsa72kopz2jgi0neq.png" alt="Slide 1" className="w-full h-auto object-contain"/>
         </div>
         <div>
-          <img src="https://via.placeholder.com/800x400" alt="Slide 2" className="w-full h-auto object-cover"/>
+          <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728143087/cw6n7mjt6n6sz7scez3i.png" alt="Slide 2" className="w-full h-auto object-cover"/>
         </div>
         <div>
-          <img src="https://via.placeholder.com/800x400" alt="Slide 3" className="w-full h-auto object-cover"/>
+          <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728146345/azqtrqvf7tnclcortmni.png" alt="Slide 3" className="w-full h-auto object-cover"/>
         </div>
       </Slider>
     </div>
