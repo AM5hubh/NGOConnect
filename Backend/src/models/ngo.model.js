@@ -1,11 +1,13 @@
 import mongoose, { Schema } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
 
-const userSchema = new Schema(
+const ngoSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
-      index: true, //for search optimisation
+      index: true,
     },
     email: {
       type: String,
@@ -19,47 +21,70 @@ const userSchema = new Schema(
       required: true,
       unique: true,
       trim: true,
-      index: true, //for search optimisation
+      index: true,
     },
     registration: {
       type: String,
       required: true,
       unique: true,
       trim: true,
-      index: true, //for search optimisation
+      index: true,
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: true,
     },
     refreshToken: {
       type: String,
     },
-    description: {
-      type: String,
-    },
-    acheivements: {
-      type: String,
-    },
-    sofname: {
-      type: String,
-    },
-    website: {
-      type: String,
-    },
-    instagram: {
-      type: String,
-    },
-    facebook: {
-      type: String,
-    },
-    imageUrl: {
-      type: String
-    },
+    description: String,
+    acheivements: String,
+    sofname: String,
+    website: String,
+    instagram: String,
+    facebook: String,
+    imageUrl: String,
   },
   {
     timestamps: true,
   }
 );
 
-export const NGO = mongoose.model("NGO", userSchema);
+ngoSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
+
+ngoSchema.methods.isPasswordCorrect = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
+
+ngoSchema.methods.generateAccessToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+      email: this.email,
+    },
+    process.env.ACCESS_TOKEN_SECRET,
+    {
+      expiresIn: process.env.ACCESS_TOKEN_EXPIRY,
+    }
+  );
+};
+ngoSchema.methods.generateRefreshToken = function () {
+  return jwt.sign(
+    {
+      _id: this._id,
+    },
+    process.env.REFRESH_TOKEN_SECRET,
+    {
+      expiresIn: process.env.REFRESH_TOKEN_EXPIRY,
+    }
+  );
+};
+
+
+export const NGO = mongoose.model("NGO", ngoSchema);
+

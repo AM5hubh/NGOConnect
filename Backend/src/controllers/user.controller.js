@@ -24,26 +24,13 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  // get user details from frontend
-  // validation - not empty
-  // check if user already exist: username, email
-  // check for images and avatar
-  // upload them to cloudinary, avatar
-  // create user object - create entry in db
-  // remove password and refresh token field from response
-  // check for user creation
-  // return response
-
   const { fullname, email, username, password } = req.body;
-  //   console.log("email:", email);
-  // if(fullname === ""){
-  //     throw new ApiError(400, "fullname is reqired")
-  // }
+
   if (
     [fullname, email, username, password].some((field) => field?.trim() === "")
   ) {
     // throw new ApiError(400, "All fields are reqired");
-    return res.status(400).json( new ApiError(400, "All fields are reqired"))
+    return res.status(400).json(new ApiError(400, "All fields are reqired"));
     // return res.status(400).json({
     //   message: "All fields are reqired"
     // });
@@ -55,7 +42,9 @@ const registerUser = asyncHandler(async (req, res) => {
   //   console.log(existedUser);
   if (existedUser) {
     // res.send("error username  ")
-    return res.status(409).json( new ApiError(409,"User with Username or Email already exists" ))
+    return res
+      .status(409)
+      .json(new ApiError(409, "User with Username or Email already exists"));
     // return res.status(409).json({
     //   message: "User with Username or Email already exists"
     // });
@@ -96,7 +85,7 @@ const registerUser = asyncHandler(async (req, res) => {
     // coverImage: coverImage?.url || "",
     email,
     password,
-    username: username.toLowerCase(),
+    username,
   });
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
@@ -107,8 +96,9 @@ const registerUser = asyncHandler(async (req, res) => {
     // return res.status(409).json({
     //   message: "Something went wrong while registration user"
     // });
-    return res.status(409).json( new ApiError( 409,"Something went wrong while registration user"))
-
+    return res
+      .status(409)
+      .json(new ApiError(409, "Something went wrong while registration user"));
   }
 
   return res
@@ -127,7 +117,9 @@ const loginUser = asyncHandler(async (req, res) => {
   const { email, username, password } = req.body;
 
   if (!(username || email)) {
-    return res.status(400).json( new ApiError(400, "Username or email required"));
+    return res
+      .status(400)
+      .json(new ApiError(400, "Username or email required"));
   }
 
   const user = await User.findOne({
@@ -135,13 +127,13 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    return res.status(400).json( new ApiError(400, "User does not exist"));
+    return res.status(400).json(new ApiError(400, "User does not exist"));
   }
 
   const isPasswordvalid = await user.isPasswordCorrect(password);
 
   if (!isPasswordvalid) {
-    return res.status(401).json( new ApiError(401, "Invalid user credentials"));
+    return res.status(401).json(new ApiError(401, "Invalid user credentials"));
   }
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
@@ -248,14 +240,17 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-const getCurrentUser = asyncHandler(async(req, res) => {
+const getCurrentUser = asyncHandler(async (req, res) => {
+  // console.log(req.user)
   return res
-  .status(200)
-  .json(new ApiResponse(
-      200,
-      req.user,
-      "User fetched successfully"
-  ))
-})
+    .status(200)
+    .json(new ApiResponse(200, req.user, "User fetched successfully"));
+});
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken,getCurrentUser };
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refreshAccessToken,
+  getCurrentUser,
+};

@@ -12,7 +12,7 @@ const Home = () => {
       {/* <header className="bg-blue-600 text-white p-4 text-center">
         <h1 className="text-3xl font-bold">Welcome to My Website</h1>
       </header> */}
-      <main className=" px-10">
+      <main className=" md:px-10">
         <CarouselComponent />
         
       </main>

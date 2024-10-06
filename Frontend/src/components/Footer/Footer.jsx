@@ -115,7 +115,7 @@ function Footer() {
           Subscribe
         </button>
       </form>
-      <footer className="bg-blue-600 text-white p-4 text-center">
+      <footer className="bg-blue-900 text-white p-4 text-center">
         <p>&copy; 2024 NGOConnect</p>
       </footer>
     </footer>

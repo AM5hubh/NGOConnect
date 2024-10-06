@@ -15,7 +15,7 @@ const CarouselComponent = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto">
+    <div className="pt-2 md:w-11/12 mx-auto">
       <Slider {...settings}>
         <div>
           <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728146712/wwivsa72kopz2jgi0neq.png" alt="Slide 1" className="w-full h-auto object-contain"/>

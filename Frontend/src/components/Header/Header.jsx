@@ -87,6 +87,7 @@ export default function Header() {
             <div className="ml-4 flex items-center md:ml-6">
               <NavLink to="/login" className="bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded-md text-sm font-medium">Login</NavLink>
               <NavLink to="/signup" className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium ml-2">Sign up</NavLink>
+              <NavLink to="/register" className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-md text-sm font-medium ml-2">Register NGO</NavLink>
             </div>
             )
           }

@@ -36,9 +36,11 @@ app.use(errorHandler);
 //routes import
 
 import userRouter from './routes/user.routes.js'
+import ngoRouter from './routes/ngo.routes.js'
 
 //routes declaration
 app.use("/api/v1/users", userRouter) // goes to user.routes.js
+app.use("/api/v1/ngouser", ngoRouter) // goes to user.routes.js
 //http://localhost:8000/api/v1/users/register
 
 

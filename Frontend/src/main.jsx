@@ -9,12 +9,15 @@ import About from './components/About/About.jsx'
 import User from './components/User/User.jsx'
 import Login from './components/Auth/Login/Login.jsx'
 import Signup from './components/Auth/Signup/Signup.jsx'
+import Register from './components/Auth/Register/Register.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='' element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path="register" element={<Register />} />
+
       {/* <Route path='user/' element={<User />}>
         <Route path=':userid' element={<User />} />
       </Route> */}
