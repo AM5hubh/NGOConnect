@@ -1,7 +1,7 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { NGO } from "../models/ngo.model.js";
-// import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 
@@ -30,8 +30,10 @@ const generateAccessAndRefreshTokens = async (ngoId) => {
 const registerNGOUser = asyncHandler(async (req, res) => {
   const { name, email, contact, registration, password } = req.body;
   console.log(req.body);
+
+  // Check if any field is missing or empty
   if (
-    [name, email, registration, password].some((field) => field?.trim() === "")
+    [name, email, registration, password].some((field) => !field?.trim())
   ) {
     return res.status(400).json(new ApiError(400, "All fields are required"));
   }
@@ -51,12 +53,24 @@ const registerNGOUser = asyncHandler(async (req, res) => {
       );
   }
 
+  // let imagefile;
+  // if (
+  //   req.files &&
+  //   Array.isArray(req.files.imageUrl) &&
+  //   req.files.imageUrl.length > 0
+  // ) {
+  //   imagefile = req.files.imageUrl[0].path;
+  // }
+  
+  // const imagefileupload = await uploadOnCloudinary(imagefile);
+
   const ngoUser = await NGO.create({
     name,
     email,
     contact,
     registration,
     password,
+    imageUrl: imagefileupload?.url || "",
   });
 
   const createdNGOUser = await NGO.findById(ngoUser._id).select(
@@ -77,6 +91,7 @@ const registerNGOUser = asyncHandler(async (req, res) => {
       new ApiResponse(201, createdNGOUser, "NGO User registered successfully")
     );
 });
+
 
 const loginNGOUser = asyncHandler(async (req, res) => {
   const { email, registration, password } = req.body;

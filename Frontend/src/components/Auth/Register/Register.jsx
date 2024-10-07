@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import {toast} from 'react-hot-toast';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -24,10 +26,29 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Here you would typically send the data to your backend
     console.log('Form submitted:', formData);
+    try {
+        const res = await axios.post(
+          "http://localhost:8000/api/v1/ngouser/register",
+          formData
+        );
+        localStorage.setItem("accessToken", res.data);
+        toast.success("User registered successfully!");
+        navigate("/login");
+      } catch (err) {
+        const errorMessage =
+          err.response?.data.messagetext ||
+          err.response?.data?.message ||
+          err.response?.data?.errors?.[0]?.msg ||
+          err.message ||
+          "Something went wrong. Please try again.";
+  
+        console.error("Error response:", err.response);
+        toast.error(errorMessage);
+      }
   };
 
   return (

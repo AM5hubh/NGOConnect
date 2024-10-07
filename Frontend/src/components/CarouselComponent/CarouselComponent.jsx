@@ -1,6 +1,6 @@
-import React from 'react';
-import Slider from 'react-slick';
-import "slick-carousel/slick/slick.css"; 
+import React from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const CarouselComponent = () => {
@@ -18,13 +18,25 @@ const CarouselComponent = () => {
     <div className="pt-2 md:w-11/12 mx-auto">
       <Slider {...settings}>
         <div>
-          <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728146712/wwivsa72kopz2jgi0neq.png" alt="Slide 1" className="w-full h-auto object-contain"/>
+          <img
+            src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728146712/wwivsa72kopz2jgi0neq.png"
+            alt="Slide 1"
+            className="w-full h-auto object-contain"
+          />
         </div>
         <div>
-          <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728143087/cw6n7mjt6n6sz7scez3i.png" alt="Slide 2" className="w-full h-auto object-cover"/>
+          <img
+            src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728218967/bovemvyvqqwpqyi7feb7.png"
+            alt="Slide 2"
+            className="w-full h-auto object-cover"
+          />
         </div>
         <div>
-          <img src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728146345/azqtrqvf7tnclcortmni.png" alt="Slide 3" className="w-full h-auto object-cover"/>
+          <img
+            src="https://res.cloudinary.com/dvv99sjjl/image/upload/v1728146345/azqtrqvf7tnclcortmni.png"
+            alt="Slide 3"
+            className="w-full h-auto object-cover"
+          />
         </div>
       </Slider>
     </div>

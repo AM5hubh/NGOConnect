@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ArrowRight, Heart, Globe, Users } from "lucide-react";
+import { Link } from "react-router-dom";
+import { UserContext } from "../../../context/userContext";
 
 function About() {
+  const {user,setuser} = useContext(UserContext);
   return (
     <div className="container mx-auto py-8">
       <h1 className="text-4xl font-bold text-center mb-8">About NGOConnect</h1>
@@ -65,8 +68,7 @@ function About() {
             <span>Facilitating communication between NGOs and donors</span>
           </li>
         </ul>
-
-        <div className="bg-blue-600 p-6 rounded-lg mb-8 text-white">
+        {user ? (<div className="hidden bg-blue-600 p-6 rounded-lg mb-8 text-white">
           <h2 className="text-2xl font-semibold mb-4 flex items-center">
             <Heart className="mr-2" /> Join Us in Making a Difference
           </h2>
@@ -75,10 +77,28 @@ function About() {
             seeking to make a meaningful impact, NGOConnect is here to help you
             achieve your goals.
           </p>
-          <button className="bg-[#c0adcc] hover:bg-green-600 text-black hover:text-white hover:scale-95 transition-transform duration-300 font-bold py-2 px-4 rounded">
+          <Link to="/signup" className="bg-[#c0adcc] hover:bg-green-600 text-black hover:text-white hover:scale-95 transition-transform duration-300 font-bold py-2 px-4 rounded">
             Get Started Today
-          </button>
-        </div>
+          </Link>
+        </div>):(<div className="bg-blue-600 p-6 rounded-lg mb-8 text-white">
+          <h2 className="text-2xl font-semibold mb-4 flex items-center">
+            <Heart className="mr-2" /> Join Us in Making a Difference
+          </h2>
+          <p className="mb-4">
+            Whether you're an NGO looking to expand your reach or a donor
+            seeking to make a meaningful impact, NGOConnect is here to help you
+            achieve your goals.
+          </p>
+          <div className="gap-4">
+          <Link to="/register" className="m-2 bg-[#c0adcc] hover:bg-green-600 text-black hover:text-white hover:scale-95 transition-transform duration-300 font-bold py-2 px-4 rounded">
+            Get Started Today(NGO)
+          </Link>
+          <Link to="/signup" className="bg-[#c0adcc] hover:bg-green-600 text-black hover:text-white hover:scale-95 transition-transform duration-300 font-bold py-2 px-4 rounded">
+            Get Started Today(volunteer)
+          </Link>
+          </div>
+        </div>)}
+        
       </div>
     </div>
   );
