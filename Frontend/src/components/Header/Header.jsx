@@ -123,7 +123,10 @@ export default function Header() {
               <NavLink to="/login" className="bg-gray-700 hover:bg-gray-600 px-3 py-2 rounded-md text-base font-medium w-full">Login</NavLink>
             </div>
             <div className="mt-3 flex items-center text-center px-5">
-              <NavLink className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium w-full">Sign up</NavLink>
+              <NavLink to="/signup" className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium w-full">Sign up</NavLink>
+            </div>
+            <div className="mt-3 flex items-center text-center px-5">
+              <NavLink to="/register" className="bg-blue-600 hover:bg-blue-500 px-3 py-2 rounded-md text-base font-medium w-full">Register NGO</NavLink>
             </div>
           </div>
         </div>
