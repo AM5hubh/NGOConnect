@@ -1,12 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import axios from 'axios';
 import CarouselComponent from "../CarouselComponent/CarouselComponent.jsx";
 import { UserContext } from "../../../context/userContext.jsx";
 import About from "../About/About.jsx";
+import NGOcards from "../NGOcards/NGOcards.jsx"
+import DonationDashboard from "../DonationDashboard/DonationDashboard.jsx";
+import VolunteerDashboard from "../VolunteerDashboard/VolunteerDashboard.jsx";
+import GoogleTranslate from "../GTranslate/GoogleTranslate.jsx";
 
 const Home = () => {
   const { user, setUser } = useContext(UserContext);
-
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <div className=" bg-[#f3f2f3]">
       {/* <header className="bg-blue-600 text-white p-4 text-center">
@@ -14,11 +20,14 @@ const Home = () => {
       </header> */}
       <main className=" md:px-10">
         <CarouselComponent />
-        
       </main>
+      <NGOcards />
       <div className="p-4 px-10 mt-8 bg-[#e0dce0]">
-          <About />
-        </div>
+        <About />
+      </div>
+      <DonationDashboard />
+      <VolunteerDashboard />
+      <GoogleTranslate />
     </div>
   );
 };

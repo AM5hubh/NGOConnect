@@ -8,33 +8,31 @@ import jwt from "jsonwebtoken";
 const generateAccessAndRefreshTokens = async (ngoId) => {
   try {
     const ngoUser = await NGO.findById(ngoId);
-    // if (!ngoUser) {
-    //   throw new ApiError(404, "NGO User not found");
-    // }
-
-    // Generate access and refresh tokens
     const accessToken = ngoUser.generateAccessToken();
     const refreshToken = ngoUser.generateRefreshToken();
-
-    // Save refresh token to the database
     ngoUser.refreshToken = refreshToken;
     await ngoUser.save({ validateBeforeSave: false });
-
     return { accessToken, refreshToken };
   } catch (error) {
-    // Handle the error without using res
     throw new ApiError(500, "Error generating tokens: " + error.message);
   }
 };
 
 const registerNGOUser = asyncHandler(async (req, res) => {
-  const { name, email, contact, registration, password } = req.body;
-  console.log(req.body);
-
-  // Check if any field is missing or empty
-  if (
-    [name, email, registration, password].some((field) => !field?.trim())
-  ) {
+  const {
+    name,
+    email,
+    contact,
+    registration,
+    password,
+    facebook,
+    instagram,
+    website,
+    sofname,
+    acheivements,
+    description,
+  } = req.body;
+  if ([name, email, registration, password].some((field) => !field?.trim())) {
     return res.status(400).json(new ApiError(400, "All fields are required"));
   }
 
@@ -53,16 +51,12 @@ const registerNGOUser = asyncHandler(async (req, res) => {
       );
   }
 
-  // let imagefile;
-  // if (
-  //   req.files &&
-  //   Array.isArray(req.files.imageUrl) &&
-  //   req.files.imageUrl.length > 0
-  // ) {
-  //   imagefile = req.files.imageUrl[0].path;
-  // }
-  
-  // const imagefileupload = await uploadOnCloudinary(imagefile);
+  let imageUrl = "";
+  if (req.files && req.files.imageUrl && req.files.imageUrl[0]) {
+    const imageFilePath = req.files.imageUrl[0].path;
+    const uploadResult = await uploadOnCloudinary(imageFilePath);
+    imageUrl = uploadResult.url;
+  }
 
   const ngoUser = await NGO.create({
     name,
@@ -70,7 +64,13 @@ const registerNGOUser = asyncHandler(async (req, res) => {
     contact,
     registration,
     password,
-    imageUrl: imagefileupload?.url || "",
+    imageUrl,
+    facebook,
+    instagram,
+    website,
+    sofname,
+    acheivements,
+    description
   });
 
   const createdNGOUser = await NGO.findById(ngoUser._id).select(
@@ -92,19 +92,15 @@ const registerNGOUser = asyncHandler(async (req, res) => {
     );
 });
 
-
 const loginNGOUser = asyncHandler(async (req, res) => {
   const { email, registration, password } = req.body;
-
   if (!(email || registration)) {
     return res
       .status(400)
       .json(new ApiError(400, "Email or Registration number required"));
   }
 
-  const ngoUser = await NGO.findOne({
-    $or: [{ email }, { registration }],
-  });
+  const ngoUser = await NGO.findOne({ $or: [{ email }, { registration }] });
 
   if (!ngoUser) {
     return res.status(400).json(new ApiError(400, "NGO User does not exist"));
@@ -206,8 +202,30 @@ const refreshNGOAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
+const getAllUser = asyncHandler(async (req, res) => {
+  const users = await NGO.find({}, '-password -refreshToken');
+ // Fetch all users from the database, excluding password and refresh token
+  return res.status(200).json(new ApiResponse(200, users, "All users fetched successfully"));
+});
+
+const getNGOById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const ngo = await NGO.findById(id);
+
+    if (!ngo) {
+      return res.status(404).json({ message: 'NGO not found' });
+    }
+
+    res.status(200).json(ngo);
+  } catch (error) {
+    console.error('Error fetching NGO by ID:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 const getCurrentNGOUser = asyncHandler(async (req, res) => {
-  console.log(req.ngouser);
   return res
     .status(200)
     .json(new ApiResponse(200, req.ngouser, "NGO User fetched successfully"));
@@ -219,4 +237,6 @@ export {
   logoutNGOUser,
   refreshNGOAccessToken,
   getCurrentNGOUser,
+  getAllUser,
+  getNGOById
 };

@@ -247,10 +247,16 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, req.user, "User fetched successfully"));
 });
 
+const getAllUser = asyncHandler(async (req, res) => {
+  const users = await User.find({}, '-password -refreshToken'); // Fetch all users from the database, excluding password and refresh token
+  return res.status(200).json(new ApiResponse(200, users, "All users fetched successfully"));
+});
+
 export {
   registerUser,
   loginUser,
   logoutUser,
   refreshAccessToken,
   getCurrentUser,
+  getAllUser
 };

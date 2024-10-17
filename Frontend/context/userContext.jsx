@@ -13,6 +13,32 @@ export function UserContextProvider({ children }) {
       try {
         const res = await axios.get(
           "http://localhost:8000/api/v1/users/current-user",
+
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+             // Include cookies (if using refresh tokens)
+          }
+        );
+        setUser(res.data.data); // Set the user data in state
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+        setUser(null); // Clear the user state if fetching fails
+      }
+    };
+
+    if (!user) {
+      fetchUser(); // Fetch user if not already fetched
+    }
+  }, [user]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/v1/ngouser/current",
+
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
@@ -41,6 +41,9 @@ const Signup = () => {
     }
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
       <div className="flex shadow-2xl rounded-lg overflow-hidden">
@@ -52,30 +55,36 @@ const Signup = () => {
           />
           <div className="absolute inset-0 bg-yellow-800 bg-opacity-30 flex items-center justify-center">
             <h1 className="text-center text-white font-bold text-4xl px-6 hover:scale-125 transition-transform duration-500 cursor-default">
-              Welcome to<br />NGOConnect
+              Welcome to
+              <br />
+              NGOConnect
             </h1>
           </div>
         </div>
 
         <div className="bg-white p-8 w-full md:w-1/2 max-w-md">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">Sign Up</h2>
+          <h2 className="text-3xl font-bold text-center text-gray-800 mb-8">
+            Sign Up
+          </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {['fullname', 'email', 'username', 'password'].map((field) => (
+            {["fullname", "email", "username", "password"].map((field) => (
               <div key={field}>
                 <label
                   htmlFor={field}
                   className="block text-sm font-medium text-gray-700 mb-1 capitalize"
                 >
-                  {field === 'fullname' ? 'Full Name' : field}
+                  {field === "fullname" ? "Full Name" : field}
                 </label>
                 <input
-                  type={field === 'password' ? 'password' : 'text'}
+                  type={field === "password" ? "password" : "text"}
                   id={field}
                   name={field}
                   value={formData[field]}
                   onChange={handleChange}
                   className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
-                  placeholder={`Enter your ${field === 'fullname' ? 'full name' : field}`}
+                  placeholder={`Enter your ${
+                    field === "fullname" ? "full name" : field
+                  }`}
                   required
                 />
               </div>
@@ -89,7 +98,10 @@ const Signup = () => {
           </form>
           <p className="text-center text-gray-600 mt-6">
             Already have an account?{" "}
-            <Link to="/login" className="text-gray-800 hover:underline font-medium">
+            <Link
+              to="/login"
+              className="text-gray-800 hover:underline font-medium"
+            >
               Log In
             </Link>
           </p>

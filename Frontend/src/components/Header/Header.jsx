@@ -47,10 +47,10 @@ export default function Header() {
                     </div>
                   )}
                 </div> */}
-                <NavLink to="/contributearticle" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Contribute</NavLink>
-                <NavLink to="/contribution" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Donation</NavLink>
-                <NavLink to="/aluminilist" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Search NGO</NavLink>
-                <NavLink to="/listarticle" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">View Articles</NavLink>
+                {/* <NavLink to="/donations" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Contribute</NavLink> */}
+                <NavLink to="/donations" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Donation</NavLink>
+                <NavLink to="/NGOcards" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Search NGO</NavLink>
+                <NavLink to="/volunteer" className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700">Volunteers</NavLink>
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@ export default function Header() {
                       </div>
                     )}
                   </div>
-                  <h1>Hello!! {user.fullname}.</h1>
+                  <h1>Hello!! {user.fullname || user.name}.</h1>
                 </div>
 
               ):(

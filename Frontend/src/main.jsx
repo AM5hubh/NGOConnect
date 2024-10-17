@@ -10,6 +10,14 @@ import User from './components/User/User.jsx'
 import Login from './components/Auth/Login/Login.jsx'
 import Signup from './components/Auth/Signup/Signup.jsx'
 import Register from './components/Auth/Register/Register.jsx'
+import NgoLogin from './components/Auth/NGOLogin/NgoLogin.jsx'
+import NGOcards from './components/NGOcards/NGOcards.jsx'
+import PrivateRoutes from './Privateroutes.jsx'
+import AdminDashboard from './components/Admin/AdminDashboard.jsx'
+import AdminLogin from './components/Admin/Auth/AdminLogin.jsx'
+import NGODetails from './components/NGODetails/NGODetails.jsx'
+import DonationDashboard from './components/DonationDashboard/DonationDashboard.jsx'
+import VolunteerDashboard from './components/VolunteerDashboard/VolunteerDashboard.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,13 +25,27 @@ const router = createBrowserRouter(
       <Route path='' element={<Home />} />
       <Route path="about" element={<About />} />
       <Route path="register" element={<Register />} />
+      <Route path="donations" element={<DonationDashboard />} />
+      <Route path="volunteer" element={<VolunteerDashboard />} />
 
       {/* <Route path='user/' element={<User />}>
         <Route path=':userid' element={<User />} />
       </Route> */}
+      <Route path="/private" element={<PrivateRoutes />} >
+      <Route path="admindashboard" element={<AdminDashboard />} />
+      </Route>
       <Route path='programs/' />
       <Route path="login" element={<Login />} />
+      <Route path="/adminlogin" element={<AdminLogin />} />
+
+      <Route path="ngologin" element={<NgoLogin />} />
       <Route path="signup" element={<Signup />} />
+        <Route exact path="ngocards" element={<NGOcards />} />
+        <Route path="ngo/:id" element={<NGODetails />} />
+        
+      
+      {/* <Route path="ngocards" element={<NGOcards />} /> */}
+      {/* <Route path="signup" element={<Signup />} /> */}
       <Route path='*' element={<h1 className='text-center text-3xl text-bold'>Not Found</h1>} />
     </Route>
   )
