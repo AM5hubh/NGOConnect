@@ -38,12 +38,15 @@ app.use(errorHandler);
 import userRouter from './routes/user.routes.js'
 import ngoRouter from './routes/ngo.routes.js'
 import adminRouter from './routes/admin.routes.js'
-
+import volunteerRouter from './routes/volunteer.routes.js'
+import loginRouter from './routes/login.routes.js'
 //routes declaration
 app.use("/api/v1/admin", adminRouter);
 
-app.use("/api/v1/users", userRouter) // goes to user.routes.js
-app.use("/api/v1/ngouser", ngoRouter) // goes to user.routes.js
+app.use("/api/v1/auth", loginRouter) 
+app.use("/api/v1/users", userRouter) 
+app.use("/api/v1/ngouser", ngoRouter) 
+app.use("/api/v1/volunteer", volunteerRouter)
 //http://localhost:8000/api/v1/users/register
 
 

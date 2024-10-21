@@ -31,7 +31,7 @@ export function UserContextProvider({ children }) {
     if (!user) {
       fetchUser(); // Fetch user if not already fetched
     }
-  }, [user]);
+  });
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -56,7 +56,7 @@ export function UserContextProvider({ children }) {
     if (!user) {
       fetchUser(); // Fetch user if not already fetched
     }
-  }, [user]);
+  });
 
   // Logout function to log the user out
   const logout = async () => {

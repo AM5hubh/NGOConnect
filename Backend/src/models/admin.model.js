@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const adminSchema = new mongoose.Schema({
-  fullname: {
+  name: {
     type: String,
     required: true,
   },

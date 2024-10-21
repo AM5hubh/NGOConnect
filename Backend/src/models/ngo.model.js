@@ -19,7 +19,6 @@ const ngoSchema = new Schema(
     contact: {
       type: Number,
       required: true,
-      unique: true,
       trim: true,
       index: true,
     },
@@ -40,6 +39,7 @@ const ngoSchema = new Schema(
     description: String,
     acheivements: String,
     sofname: String,
+    type: String,
     website: String,
     instagram: String,
     facebook: String,

@@ -2,7 +2,7 @@
 import { ApiError } from "../utils/ApiError.js";
 import { Admin } from "../models/admin.model.js";
 import nodemailer from "nodemailer"
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import UserOtpVerification from "../models/user.otpverification.js";
 
 const generateAccessAndRefreshTokens = async (adminId) => {
@@ -21,10 +21,10 @@ const generateAccessAndRefreshTokens = async (adminId) => {
 };
 
 const registerAdmin = asyncHandler(async (req, res) => {
-  const { fullname, email, password } = req.body;
+  const { name, email, password } = req.body;
 
   // Validate input
-  if (!fullname?.trim() || !email?.trim() || !password?.trim()) {
+  if (!name?.trim() || !email?.trim() || !password?.trim()) {
     return res.status(400).json(new ApiError(400, "All fields are required"));
   }
 
@@ -37,7 +37,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
   }
 
   // Create a new Admin
-  const admin = new Admin({ fullname, email, password, verified: false });
+  const admin = new Admin({ name, email, password, verified: false });
   const savedAdmin = await admin.save();
 
   sendOtpVerificationEmail(savedAdmin, res); // Send OTP for verification
@@ -170,7 +170,7 @@ const sendOtpVerificationEmail = async ({ _id, email }, res) => {
 
 const verifyOtp = async (req, res) => {
   try {
-    let { userId, otp } = req.body;
+    let { userId,email, otp } = req.body;
 
     // Check if userId or otp is missing
     if (!userId || !otp) {
@@ -265,7 +265,6 @@ const verifyLoginOtp = asyncHandler(async (req, res) => {
 
   // Compare the provided OTP with the hashed OTP
   const validOtp = bcrypt.compare(otp, hashedOtp);
-
   // If the OTP is invalid
   if (!validOtp) {
     return res

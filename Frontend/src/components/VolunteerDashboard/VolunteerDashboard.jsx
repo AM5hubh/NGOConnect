@@ -1,6 +1,7 @@
 import React from 'react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Users, Calendar, Building, Clock, Award, HandHeart, Target } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const VolunteerDashboard = () => {
   // Sample data
@@ -173,14 +174,14 @@ const VolunteerDashboard = () => {
           Join our community of passionate volunteers and connect with NGOs that match your interests and skills.
         </p>
         <div className="flex space-x-4">
-          <button className="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold 
+          <Link to="/Volunteerform" className="bg-white text-purple-600 px-6 py-2 rounded-full font-semibold 
                            hover:bg-purple-50 transition-colors">
             Volunteer Now
-          </button>
-          <button className="border-2 border-white text-white px-6 py-2 rounded-full font-semibold 
+          </Link>
+          <Link to="/register" className="border-2 border-white text-white px-6 py-2 rounded-full font-semibold 
                            hover:bg-purple-600 transition-colors">
             Partner as NGO
-          </button>
+          </Link>
         </div>
       </div>
     </div>

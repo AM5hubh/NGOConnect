@@ -42,8 +42,8 @@ const Login = () => {
       setShowOtpModal(true);
       // setShowOtpModal(true)
     } catch (err) {
-        console.log(err)
-      toast.error("error occ",err);
+        console.log(err.response.data.messagetext)
+      toast.error(err.response.data.messagetext);
     }
     // Here you would typically send the data to your backend for authentication
   };

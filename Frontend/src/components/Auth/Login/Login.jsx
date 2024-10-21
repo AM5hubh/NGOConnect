@@ -26,8 +26,8 @@ const Login = () => {
       );
       localStorage.setItem("accessToken", res.data.data.accessToken);
       toast.success("Login successful!");
-      // navigate("/");
-      window.location = "/";
+      navigate("/");
+      // window.location = "/";
     } catch (err) {
       const errorMessage =
         err.response?.data.messagetext ||

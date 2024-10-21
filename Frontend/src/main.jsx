@@ -18,6 +18,9 @@ import AdminLogin from './components/Admin/Auth/AdminLogin.jsx'
 import NGODetails from './components/NGODetails/NGODetails.jsx'
 import DonationDashboard from './components/DonationDashboard/DonationDashboard.jsx'
 import VolunteerDashboard from './components/VolunteerDashboard/VolunteerDashboard.jsx'
+import AdminSignup from './components/Admin/Auth/AdminSignup.jsx'
+import VolunteerForm from './components/VolunteerForm/VolunteerForm.jsx'
+import Volunteerbystatus from './components/Volunteerbystatus/Volunteerbystatus.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,9 +40,12 @@ const router = createBrowserRouter(
       <Route path='programs/' />
       <Route path="login" element={<Login />} />
       <Route path="/adminlogin" element={<AdminLogin />} />
+      <Route path="/adminsignup" element={<AdminSignup />} />
 
       <Route path="ngologin" element={<NgoLogin />} />
       <Route path="signup" element={<Signup />} />
+      <Route path="Volunteerform" element={<VolunteerForm />} />
+      {/* <Route path="volunteerbystatus" element={<Volunteerbystatus />} /> */}
         <Route exact path="ngocards" element={<NGOcards />} />
         <Route path="ngo/:id" element={<NGODetails />} />
         

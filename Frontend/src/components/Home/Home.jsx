@@ -7,9 +7,10 @@ import NGOcards from "../NGOcards/NGOcards.jsx"
 import DonationDashboard from "../DonationDashboard/DonationDashboard.jsx";
 import VolunteerDashboard from "../VolunteerDashboard/VolunteerDashboard.jsx";
 import GoogleTranslate from "../GTranslate/GoogleTranslate.jsx";
+import ScrollTop from "../ScrollToTop/ScrollTop.jsx";
 
 const Home = () => {
-  const { user, setUser } = useContext(UserContext);
+  // const { user, setUser } = useContext(UserContext);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -27,7 +28,8 @@ const Home = () => {
       </div>
       <DonationDashboard />
       <VolunteerDashboard />
-      <GoogleTranslate />
+      <ScrollTop />
+      {/* <GoogleTranslate /> */}
     </div>
   );
 };

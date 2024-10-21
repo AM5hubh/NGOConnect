@@ -1,87 +1,225 @@
-//admin page
 import React, { useState } from 'react';
 import { 
-  Users, AlertTriangle, DollarSign, FileText, BarChart2, Bell, 
-  Package, MessageSquare, Shield, BookOpen, Settings
+    Users, 
+    Building2, 
+    ShieldCheck, 
+    Search,
+    Menu,
+    X,
+    Plus,
+    Edit,
+    Trash2
 } from 'lucide-react';
-import UserCardsAdmin from './Auth/UserCardsAdmin';
+import VolunteerDashboard from '../Volunteerbystatus/Volunteerbystatus';
 
 const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = useState('user');
+    const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState('dashboard');
 
-  const tabs = [
-    { id: 'user', label: 'User Management', icon: Users },
-  ];
-
-  const renderTabContent = () => {
-    switch(activeTab) {
-      case 'user':
-        return (
-            <UserCardsAdmin />
-        );
-      case 'relief':
-        return (
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold">Disaster Relief Operations</h3>
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">
-              Create Relief Campaign
-            </button>
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors ml-4">
-              Track Operations
-            </button>
-            <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors ml-4">
-              Assign Volunteers
-            </button>
-          </div>
-        );
-      // Add cases for other tabs here
-      default:
-        return <p>Select a tab to view options</p>;
-    }
-  };
-
-  return (
-    <div className="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-4xl flex items-center justify-center font-bold text-center mb-8 text-indigo-800">
-           <span ><img src='/vcetlogo.png' className='w-24 h-24 mr-2'/></span>LegacyNet Admin Dashboard
-        </h1>
-        
-        <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
-          <div className="flex flex-wrap">
-            <div className="w-full md:w-1/4 bg-indigo-700 p-4">
-              <nav className="space-y-2">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab.id}
-                    className={`w-full text-left py-2 px-4 rounded transition-colors duration-200 flex items-center ${
-                      activeTab === tab.id ? 'bg-indigo-800 text-white' : 'text-indigo-100 hover:bg-indigo-600'
-                    }`}
-                    onClick={() => setActiveTab(tab.id)}
-                  >
-                    <tab.icon className="mr-3" size={20} />
-                    {tab.label}
-                  </button>
-                ))}
-              </nav>
-            </div>
-            <div className="w-full md:w-3/4 p-6">
-              <div className="bg-indigo-100 rounded-lg p-4 mb-6">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-semibold text-indigo-800">Welcome, Admin</h2>
-                  <button className="bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors flex items-center">
-                    <Settings className="mr-2" size={20} />
-                    Settings
-                  </button>
+    const renderDashboardContent = () => (
+        <>
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-center">
+                        <div className="p-2 bg-blue-100 rounded">
+                            <Building2 className="h-6 w-6 text-blue-600" />
+                        </div>
+                        <div className="ml-4">
+                            <h3 className="text-gray-500 text-sm">Total NGOs</h3>
+                            <p className="text-2xl font-semibold">0</p>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              {renderTabContent()}
+                <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-center">
+                        <div className="p-2 bg-green-100 rounded">
+                            <Users className="h-6 w-6 text-green-600" />
+                        </div>
+                        <div className="ml-4">
+                            <h3 className="text-gray-500 text-sm">Active Volunteers</h3>
+                            <p className="text-2xl font-semibold">0</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-center">
+                        <div className="p-2 bg-purple-100 rounded">
+                            <ShieldCheck className="h-6 w-6 text-purple-600" />
+                        </div>
+                        <div className="ml-4">
+                            <h3 className="text-gray-500 text-sm">Admins</h3>
+                            <p className="text-2xl font-semibold">0</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+
+            {/* Recent Activities */}
+            <div className="bg-white rounded-lg shadow">
+                <div className="p-6">
+                    <h2 className="text-lg font-semibold mb-4">Recent Activities</h2>
+                    <div className="space-y-4">
+                        {/* Add your recent activities list here */}
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+
+    const renderNGOsContent = () => (
+        <div className="bg-white rounded-lg shadow">
+            <div className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-lg font-semibold">NGOs List</h2>
+                    <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add NGO
+                    </button>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full">
+                        <thead className="bg-gray-50">
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Volunteers</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                            {/* Add your NGOs data here */}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
+
+    const renderVolunteersContent = () => (
+        <div className="bg-white rounded-lg shadow">
+            <div className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-lg font-semibold">Volunteers List</h2>
+                    {/* <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Volunteer
+                    </button> */}
+                </div>
+                <VolunteerDashboard />
+            </div>
+        </div>
+    );
+
+    const renderAdminsContent = () => (
+        <div className="bg-white rounded-lg shadow">
+            <div className="p-6">
+                <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-lg font-semibold">Admins List</h2>
+                    <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Admin
+                    </button>
+                </div>
+                <div className="overflow-x-auto">
+                    <table className="w-full">
+                        <thead className="bg-gray-50">
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Last Active</th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                            {/* Add your admins data here */}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    );
+
+    const renderContent = () => {
+        switch (activeTab) {
+            case 'ngos':
+                return renderNGOsContent();
+            case 'volunteers':
+                return renderVolunteersContent();
+            case 'admins':
+                return renderAdminsContent();
+            default:
+                return renderDashboardContent();
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-gray-50">
+            {/* Header */}
+            <nav className="bg-white shadow-sm fixed w-full top-0 z-10">
+                <div className="max-w-7xl mx-auto px-4">
+                    <div className="flex justify-between h-16">
+                        <div className="flex items-center">
+                            <button 
+                                onClick={() => setSidebarOpen(!isSidebarOpen)}
+                                className="md:hidden p-2"
+                            >
+                                {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                            </button>
+                            <h1 className="text-xl font-bold text-blue-600 ml-2">NGOConnect Admin</h1>
+                        </div>
+                        <div className="flex items-center space-x-4">
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    placeholder="Search..."
+                                    className="hidden md:block w-64 pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                />
+                                <Search className="hidden md:block h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+                            </div>
+                            <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                <span className="text-sm font-medium text-blue-600">A</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            {/* Sidebar */}
+            <div className={`absolute inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 transition duration-200 ease-in-out z-30`}>
+                <div className="w-64 h-full bg-white shadow-lg pt-20">
+                    <div className="px-4">
+                        <div className="space-y-2">
+                            {['dashboard', 'ngos', 'volunteers', 'admins'].map((tab) => (
+                                <button
+                                    key={tab}
+                                    onClick={() => setActiveTab(tab)}
+                                    className={`w-full flex items-center space-x-3 px-4 py-2 rounded-lg text-sm ${
+                                        activeTab === tab ? 'bg-blue-50 text-blue-600' : 'text-gray-600 hover:bg-gray-50'
+                                    }`}
+                                >
+                                    {tab === 'dashboard' && <ShieldCheck className="h-5 w-5" />}
+                                    {tab === 'ngos' && <Building2 className="h-5 w-5" />}
+                                    {tab === 'volunteers' && <Users className="h-5 w-5" />}
+                                    {tab === 'admins' && <ShieldCheck className="h-5 w-5" />}
+                                    <span className="capitalize">{tab}</span>
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Main Content */}
+            <div className="md:ml-64 pt-16 px-4">
+                <div className="max-w-7xl mx-auto py-6">
+                    {renderContent()}
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default AdminDashboard;

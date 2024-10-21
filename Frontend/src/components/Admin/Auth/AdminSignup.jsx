@@ -3,14 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const Signup = () => {
+const AdminSignup = () => {
   const navigate = useNavigate();
   const [showOtpModal, setShowOtpModal] = useState(false);
   const [otp, setOtp] = useState("");
   const [formData, setFormData] = useState({
-    fullname: "",
+    name: "",
     email: "",
-    username: "",
     password: "",
   });
 
@@ -24,15 +23,14 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/users/register",
+        "http://localhost:8000/api/v1/admin/register",
         formData
       );
-      console.log(res)
       localStorage.setItem("userId", res.data.date.userId);
+      localStorage.setItem("email", res.data.date.email);
       toast.success("User registered successfully!");
       // navigate("/login");
       setShowOtpModal(true);
-
     } catch (err) {
       const errorMessage =
         err.response?.data.messagetext ||
@@ -45,22 +43,27 @@ const Signup = () => {
       toast.error(errorMessage);
     }
   };
-
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
       const userId = localStorage.getItem("userId");
+      const email = localStorage.getItem("email");
       const res = await axios.post(
-        "http://localhost:8000/api/v1/users/verifyOtp",
-        { userId, otp }
+        "http://localhost:8000/api/v1/admin/verifyOtp",
+        { userId, email, otp }
       );
       console.log(res);
-      toast.success("OTP verified successfully!");
-      setShowOtpModal(false);
-      navigate("/login");
+      // localStorage.setItem("accesstoken", res.data.accessToken);
+      // localStorage.setItem("admin", res.data.admin.admin);
+      // localStorage.setItem("isAdmin", res.data.admin.admin);
       localStorage.removeItem("userId");
+      localStorage.removeItem("email");
+      toast.success(res.data.message);
+      setShowOtpModal(false);
+      window.location = "/login";
+      //   navigate("/login");
     } catch (err) {
-      toast.error("OTP verification failed. Please try again.");
+      console.log(err);
     }
   };
 
@@ -90,13 +93,13 @@ const Signup = () => {
             Sign Up
           </h2>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {["fullname", "email", "username", "password"].map((field) => (
+            {["name", "email", "password"].map((field) => (
               <div key={field}>
                 <label
                   htmlFor={field}
                   className="block text-sm font-medium text-gray-700 mb-1 capitalize"
                 >
-                  {field === "fullname" ? "First Name" : field}
+                  {field === "name" ? "Name" : field}
                 </label>
                 <input
                   type={field === "password" ? "password" : "text"}
@@ -106,7 +109,7 @@ const Signup = () => {
                   onChange={handleChange}
                   className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-gray-800 focus:border-gray-800 transition"
                   placeholder={`Enter your ${
-                    field === "fullname" ? "full name" : field
+                    field === "name" ? "full name" : field
                   }`}
                   required
                 />
@@ -122,7 +125,7 @@ const Signup = () => {
           <p className="text-center text-gray-600 mt-6">
             Already have an account?{" "}
             <Link
-              to="/login"
+              to="/adminlogin"
               className="text-gray-800 hover:underline font-medium"
             >
               Log In
@@ -131,43 +134,43 @@ const Signup = () => {
         </div>
       </div>
       {showOtpModal && (
-          <div
-            className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
-            id="my-modal"
-          >
-            <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-              <div className="mt-3 text-center">
-                <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  Enter OTP
-                </h3>
-                <div className="mt-2 px-7 py-3">
-                  <p className="text-sm text-gray-500">
-                    We've sent an OTP to your email. Please enter it below to
-                    verify your account.
-                  </p>
-                  <input
-                    type="text"
-                    className="mt-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    placeholder="Enter OTP"
-                  />
-                </div>
-                <div className="items-center px-4 py-3">
-                  <button
-                    id="ok-btn"
-                    className="px-4 py-2 bg-indigo-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                    onClick={handleOtpSubmit}
-                  >
-                    Verify OTP
-                  </button>
-                </div>
+        <div
+          className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full"
+          id="my-modal"
+        >
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div className="mt-3 text-center">
+              <h3 className="text-lg leading-6 font-medium text-gray-900">
+                Enter OTP
+              </h3>
+              <div className="mt-2 px-7 py-3">
+                <p className="text-sm text-gray-500">
+                  We've sent an OTP to your email. Please enter it below to
+                  verify your account.
+                </p>
+                <input
+                  type="text"
+                  className="mt-4 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value)}
+                  placeholder="Enter OTP"
+                />
+              </div>
+              <div className="items-center px-4 py-3">
+                <button
+                  id="ok-btn"
+                  className="px-4 py-2 bg-indigo-500 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  onClick={handleOtpSubmit}
+                >
+                  Verify OTP
+                </button>
               </div>
             </div>
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 };
 
-export default Signup;
+export default AdminSignup;

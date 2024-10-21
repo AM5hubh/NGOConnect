@@ -8,6 +8,7 @@ import {
   verifyLoginOtp,
   getCurrentAdmin,
 } from "../controllers/admin.controller.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 

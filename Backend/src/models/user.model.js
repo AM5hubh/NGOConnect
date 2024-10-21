@@ -25,6 +25,8 @@ const userSchema = new Schema(
       index: true, //for search optimisation
     },
     volunteer: { type: Boolean, default: false },
+    verified: { type: Boolean, default: false },
+    applyvolunteer: { type: Boolean, default: false },
     // role: {
     //   type: String,
     //   trim: true,
@@ -43,10 +45,6 @@ const userSchema = new Schema(
     //     ref: "Video",
     //   },
     // ],
-    admin: {
-      type: Boolean,
-      default: false,
-    },
     password: {
       type: String,
       required: [true, "Password is required"],
