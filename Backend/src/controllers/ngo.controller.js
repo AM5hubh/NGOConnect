@@ -28,9 +28,10 @@ const registerNGOUser = asyncHandler(async (req, res) => {
     facebook,
     instagram,
     website,
-    sofname,
+    type,
     acheivements,
     description,
+    location
   } = req.body;
   if ([name, email, registration, password].some((field) => !field?.trim())) {
     return res.status(400).json(new ApiError(400, "All fields are required"));
@@ -68,9 +69,10 @@ const registerNGOUser = asyncHandler(async (req, res) => {
     facebook,
     instagram,
     website,
-    sofname,
+    type,
     acheivements,
-    description
+    description,
+    location
   });
 
   const createdNGOUser = await NGO.findById(ngoUser._id).select(

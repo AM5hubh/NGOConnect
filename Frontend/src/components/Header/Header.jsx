@@ -2,9 +2,10 @@ import axios from "axios";
 import React, { useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { UserContext } from "../../../context/userContext.jsx";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, Cookie } from "lucide-react";
 import GoogleTranslate from "../GTranslate/GoogleTranslate.jsx";
 import { useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 export default function Header() {
   // const [user,setUser] = useState(null)
@@ -26,7 +27,7 @@ export default function Header() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-             // Include cookies (if using refresh tokens)
+            // Include cookies (if using refresh tokens)
           }
         );
         setUser(res.data.data); // Set the user data in state
@@ -50,9 +51,10 @@ export default function Header() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-             // Include cookies (if using refresh tokens)
+            // Include cookies (if using refresh tokens)
           }
         );
+        console.log(res)
         setUser(res.data.data); // Set the user data in state
       } catch (error) {
         console.error("Error fetching current user:", error);
@@ -67,8 +69,8 @@ export default function Header() {
   const logout = async () => {
     try {
       // await axios.post(
-      //   "http://localhost:8000/api/v1/users/logout", 
-      //   {}, 
+      //   "http://localhost:8000/api/v1/users/logout",
+      //   {},
       //   { headers: {
       //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       //     }, } // Ensures that cookies are included
@@ -76,14 +78,14 @@ export default function Header() {
 
       // Clear user data and localStorage tokens
       localStorage.removeItem("accessToken");
-      setUser(null); // Reset the user state after logout
-
       toast.success("User logged out successfully");
+      setUser(null); // Reset the user state after logout
+      window.location = "/";
     } catch (error) {
       console.error("Error logging out:", error);
     }
   };
-
+  console.log(user);
   const handleClick = () => {
     setShowButton(!showButton); // Toggle button visibility
   };
@@ -147,7 +149,7 @@ export default function Header() {
               </div>
             </div>
           </div>
-          <div className="hidden md:block flex">
+          <div className="hidden md:block">
             {user ? (
               <div
                 className="flex justify-center items-center gap-4 "
@@ -198,7 +200,7 @@ export default function Header() {
               </div>
             )}
           </div>
-            {/* <div>
+          {/* <div>
               <GoogleTranslate />
             </div> */}
           <div className="md:hidden flex items-center">

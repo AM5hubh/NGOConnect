@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
+import { Cookie } from "lucide-react";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -26,8 +27,8 @@ const Login = () => {
       );
       localStorage.setItem("accessToken", res.data.data.accessToken);
       toast.success("Login successful!");
-      navigate("/");
-      // window.location = "/";
+      // navigate("/");
+      window.location = "/";
     } catch (err) {
       const errorMessage =
         err.response?.data.messagetext ||
@@ -89,17 +90,17 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-gray-600 text-white rounded-md hover:scale-95 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 transition duration-200"
+              className="w-full py-3 px-4 bg-gray-600 text-white rounded-md hover:scale-95 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 "
             >
               Login
             </button>
             <Link to="/ngologin">
-              <button className="w-full mt-5 py-3 px-4 bg-blue-500 text-white rounded-md hover:scale-95 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 transition duration-200">
+              <button className="w-full mt-5 py-3 px-4 bg-blue-500 text-white rounded-md hover:scale-95 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 ">
                 Login as NGO
               </button>
             </Link>
             <Link to="/adminlogin">
-              <button className="w-full mt-5 py-3 px-4 bg-blue-500 text-white rounded-md hover:scale-95 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 transition duration-200">
+              <button className="w-full mt-5 py-3 px-4 bg-blue-500 text-white rounded-md hover:scale-95 transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-600 focus:ring-opacity-50 ">
                 Login as Admin
               </button>
             </Link>

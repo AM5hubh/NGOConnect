@@ -4,6 +4,7 @@ import { Admin } from "../models/admin.model.js";
 import nodemailer from "nodemailer"
 import bcrypt from "bcrypt";
 import UserOtpVerification from "../models/user.otpverification.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 
 const generateAccessAndRefreshTokens = async (adminId) => {
   try {

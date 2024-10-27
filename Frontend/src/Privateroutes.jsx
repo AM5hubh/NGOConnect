@@ -3,7 +3,7 @@ import { Link, Navigate, Outlet } from 'react-router-dom';
 import AdminDashboard from './components/Admin/AdminDashboard.jsx';
 
 const PrivateRoutes = () => {
-  const loggedIn = localStorage.getItem("accesstoken"); // Check if accessToken exists
+  const loggedIn = localStorage.getItem("accessToken"); // Check if accessToken exists
   const isAdmin = localStorage.getItem("admin") === 'true'; // Check if the user is an admin
 
   if (loggedIn && isAdmin) {

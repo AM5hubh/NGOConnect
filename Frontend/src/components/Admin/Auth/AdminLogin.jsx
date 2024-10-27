@@ -57,7 +57,7 @@ const Login = () => {
         { email, userId, otp }
       );
       console.log(res);
-      localStorage.setItem("accesstoken", res.data.accessToken);
+      localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("admin", res.data.admin.admin);
     //   localStorage.setItem("isAdmin", res.data.admin.admin);
       localStorage.removeItem("userId");

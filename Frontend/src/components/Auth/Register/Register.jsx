@@ -12,11 +12,12 @@ const Register = () => {
     password: "",
     description: "",
     achievements: "",
-    sofname: "",
+    type: "",
     website: "",
     instagram: "",
     facebook: "",
     imageUrl: null,
+    location: "",
   });
 
   const navigate = useNavigate();
@@ -84,10 +85,15 @@ const Register = () => {
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="space-y-8 divide-y divide-gray-700">
               <div className="space-y-6">
-                <h3 className="text-lg leading-6 font-medium text-blue-300">NGO Information</h3>
+                <h3 className="text-lg leading-6 font-medium text-blue-300">
+                  NGO Information
+                </h3>
                 <div className="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                   <div className="sm:col-span-3">
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="name"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       NGO Name
                     </label>
                     <div className="mt-1">
@@ -105,7 +111,10 @@ const Register = () => {
                   </div>
 
                   <div className="sm:col-span-3">
-                    <label htmlFor="registration" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="registration"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Registration Number
                     </label>
                     <div className="mt-1">
@@ -122,7 +131,10 @@ const Register = () => {
                   </div>
 
                   <div className="sm:col-span-4">
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Email address
                     </label>
                     <div className="mt-1">
@@ -138,9 +150,32 @@ const Register = () => {
                       />
                     </div>
                   </div>
+                  <div className="sm:col-span-4">
+                    <label
+                      htmlFor="location"
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      Location
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        id="location"
+                        name="location"
+                        type="location"
+                        autoComplete="location"
+                        required
+                        className="h-10 p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white"
+                        value={formData.location}
+                        onChange={handleChange}
+                      />
+                    </div>
+                  </div>
 
                   <div className="sm:col-span-3">
-                    <label htmlFor="contact" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="contact"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Contact Number
                     </label>
                     <div className="mt-1">
@@ -158,7 +193,10 @@ const Register = () => {
                   </div>
 
                   <div className="sm:col-span-3">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Password
                     </label>
                     <div className="mt-1">
@@ -176,7 +214,10 @@ const Register = () => {
                   </div>
 
                   <div className="sm:col-span-6">
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="description"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Description
                     </label>
                     <div className="mt-1">
@@ -189,11 +230,16 @@ const Register = () => {
                         onChange={handleChange}
                       ></textarea>
                     </div>
-                    <p className="mt-2 text-sm text-gray-400">Brief description of your NGO's mission and activities.</p>
+                    <p className="mt-2 text-sm text-gray-400">
+                      Brief description of your NGO's mission and activities.
+                    </p>
                   </div>
 
                   <div className="sm:col-span-6">
-                    <label htmlFor="achievements" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="achievements"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Achievements
                     </label>
                     <div className="mt-1">
@@ -206,35 +252,58 @@ const Register = () => {
                         onChange={handleChange}
                       ></textarea>
                     </div>
-                    <p className="mt-2 text-sm text-gray-400">Highlight your NGO's key accomplishments.</p>
+                    <p className="mt-2 text-sm text-gray-400">
+                      Highlight your NGO's key accomplishments.
+                    </p>
                   </div>
                 </div>
               </div>
 
               <div className="pt-8">
                 <div>
-                  <h3 className="text-lg leading-6 font-medium text-blue-300">Additional Information</h3>
-                  <p className="mt-1 text-sm text-gray-400">Provide more details about your NGO.</p>
+                  <h3 className="text-lg leading-6 font-medium text-blue-300">
+                    Additional Information
+                  </h3>
+                  <p className="mt-1 text-sm text-gray-400">
+                    Provide more details about your NGO.
+                  </p>
                 </div>
                 <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
                   <div className="sm:col-span-3">
-                    <label htmlFor="sofname" className="block text-sm font-medium text-gray-300">
-                      SOF Name
+                    <label
+                      htmlFor="type"
+                      className="block text-sm font-medium text-gray-300"
+                    >
+                      NGO Type
                     </label>
                     <div className="mt-1">
-                      <input
-                        type="text"
-                        name="sofname"
-                        id="sofname"
+                      <select
+                        name="type"
+                        id="type"
                         className="h-10 p-2 shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full sm:text-sm border-gray-600 rounded-md bg-gray-700 text-white"
-                        value={formData.sofname}
+                        value={formData.type}
                         onChange={handleChange}
-                      />
+                      >
+                        <option value="">Select NGO Type</option>
+                        <option value="humanitarian">Humanitarian Aid</option>
+                        <option value="environmental">Environmental</option>
+                        <option value="education">Education</option>
+                        <option value="healthcare">Healthcare</option>
+                        <option value="human-rights">Human Rights</option>
+                        <option value="animal-welfare">Animal Welfare</option>
+                        <option value="arts-culture">Arts & Culture</option>
+                        <option value="community">Community Development</option>
+                        <option value="youth">Youth Empowerment</option>
+                        <option value="women">Women's Rights</option>
+                      </select>
                     </div>
                   </div>
 
                   <div className="sm:col-span-3">
-                    <label htmlFor="website" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="website"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Website
                     </label>
                     <div className="mt-1">
@@ -250,7 +319,10 @@ const Register = () => {
                   </div>
 
                   <div className="sm:col-span-3">
-                    <label htmlFor="instagram" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="instagram"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Instagram
                     </label>
                     <div className="mt-1">
@@ -266,7 +338,10 @@ const Register = () => {
                   </div>
 
                   <div className="sm:col-span-3">
-                    <label htmlFor="facebook" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="facebook"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       Facebook
                     </label>
                     <div className="mt-1">
@@ -282,12 +357,19 @@ const Register = () => {
                   </div>
 
                   <div className="sm:col-span-6">
-                    <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-300">
+                    <label
+                      htmlFor="imageUrl"
+                      className="block text-sm font-medium text-gray-300"
+                    >
                       NGO Logo
                     </label>
                     <div className="mt-1 flex items-center">
                       <span className="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
-                        <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="h-full w-full text-gray-300"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                       </span>

@@ -10,8 +10,8 @@ app.use(cors({
     credentials: true
 }))
 
-app.use(express.json({limit: "16kb"}))
-app.use(express.urlencoded({extended: true, limit: "16kb "}))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
 app.use(cookieParser())
 app.use(function(req, res, next) {
@@ -40,6 +40,7 @@ import ngoRouter from './routes/ngo.routes.js'
 import adminRouter from './routes/admin.routes.js'
 import volunteerRouter from './routes/volunteer.routes.js'
 import loginRouter from './routes/login.routes.js'
+import eventRouter from './routes/event.routes.js'
 //routes declaration
 app.use("/api/v1/admin", adminRouter);
 
@@ -47,6 +48,7 @@ app.use("/api/v1/auth", loginRouter)
 app.use("/api/v1/users", userRouter) 
 app.use("/api/v1/ngouser", ngoRouter) 
 app.use("/api/v1/volunteer", volunteerRouter)
+app.use("/api/v1/event", eventRouter)
 //http://localhost:8000/api/v1/users/register
 
 

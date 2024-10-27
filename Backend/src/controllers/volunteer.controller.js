@@ -53,7 +53,7 @@ const registerVolunteer = async (req, res) => {
     } = req.body;
     const volunteer = await User.findById(user);
     if (!volunteer) {
-     return next(new ApiError(404, "Volunteer not found"));
+      return next(new ApiError(404, "Volunteer not found"));
     }
     // Use sanitizeField to safely trim strings
     const volunteerData = {
@@ -259,7 +259,9 @@ const loginVolunteer = asyncHandler(async (req, res, next) => {
 
   // Check if the email is verified
   if (!volunteer.verified || !volunteer.emailverified) {
-    return next(new ApiError(401, "Volunteer not verified or email not verified"));
+    return next(
+      new ApiError(401, "Volunteer not verified or email not verified")
+    );
   }
 
   // Generate access and refresh tokens
@@ -291,6 +293,7 @@ const getAllVolunteers = asyncHandler(async (req, res, next) => {
     data: volunteers,
   });
 });
+
 const updateVolunteer = asyncHandler(async (req, res, next) => {
   const { userId } = req.params; // Assume userId is passed as a URL parameter
   const updateData = req.body;
@@ -312,6 +315,7 @@ const updateVolunteer = asyncHandler(async (req, res, next) => {
     data: updatedVolunteer,
   });
 });
+
 const getMe = asyncHandler(async (req, res, next) => {
   // const { userId } = req.user; // Assume userId is set in the request object after authentication middleware
 
@@ -324,6 +328,7 @@ const getMe = asyncHandler(async (req, res, next) => {
     .status(200)
     .json(new ApiResponse(200, req.user, "User fetched successfully"));
 });
+
 const getVolunteersByStatus = asyncHandler(async (req, res, next) => {
   const { status } = req.query;
 
@@ -351,41 +356,45 @@ const getVolunteersByStatus = asyncHandler(async (req, res, next) => {
     data: volunteers,
   });
 });
+
 const updateVolunteerStatus = async (req, res) => {
-    const { volunteerId } = req.params; // Get the volunteer ID from the route parameters
-    const { status } = req.body; // Get the new status from the request body
-  
-    // Validate status
-    if (!['pending', 'approved', 'rejected'].includes(status)) {
-      return res.status(400).json({ message: 'Invalid status value.' });
+  const { volunteerId } = req.params; // Get the volunteer ID from the route parameters
+  const { status } = req.body; // Get the new status from the request body
+
+  // Validate status
+  if (!["pending", "approved", "rejected"].includes(status)) {
+    return res.status(400).json({ message: "Invalid status value." });
+  }
+
+  try {
+    const volunteer = await Volunteer.findById(volunteerId);
+
+    if (!volunteer) {
+      return res.status(404).json({ message: "Volunteer not found." });
     }
-  
-    try {
-      const volunteer = await Volunteer.findById(volunteerId);
-  
-      if (!volunteer) {
-        return res.status(404).json({ message: 'Volunteer not found.' });
-      }
-  
-      // Update volunteer status
-      volunteer.status = status;
-  
-      await volunteer.save(); // Save the changes
-  
-      return res.status(200).json({
-        message: 'Volunteer status updated successfully.',
-        data: volunteer,
-      });
-    } catch (error) {
-      return res.status(500).json({ message: 'Internal server error.', error: error.message });
-    }
-  };
+
+    // Update volunteer status
+    volunteer.status = status;
+
+    await volunteer.save(); // Save the changes
+
+    return res.status(200).json({
+      message: "Volunteer status updated successfully.",
+      data: volunteer,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "Internal server error.", error: error.message });
+  }
+};
+
 export {
   registerVolunteer,
   getMe,
   updateVolunteer,
   loginVolunteer,
-    updateVolunteerStatus,
+  updateVolunteerStatus,
   getAllVolunteers,
   getVolunteersByStatus,
   verifyOtp,

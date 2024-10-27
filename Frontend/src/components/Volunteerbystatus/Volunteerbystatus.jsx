@@ -237,7 +237,7 @@ const VolunteerDashboard = () => {
               <Loader2 className="w-8 h-8 animate-spin" />
             </div>
           ) : error ? (
-            <div className="text-red-500 p-4 text-center">{error}</div>
+            <div className="text-red-500 p-4 text-center">No volunteers found with the {activeStatus} status</div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full border-collapse min-w-full divide-y divide-gray-200">

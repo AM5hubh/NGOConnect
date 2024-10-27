@@ -6,6 +6,7 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [volunteer, setVolunteer] = useState(null);
 
   // Fetch the current user on component mount
   useEffect(() => {
@@ -31,7 +32,7 @@ export function UserContextProvider({ children }) {
     if (!user) {
       fetchUser(); // Fetch user if not already fetched
     }
-  });
+  },[setUser]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -46,6 +47,7 @@ export function UserContextProvider({ children }) {
              // Include cookies (if using refresh tokens)
           }
         );
+        console.log(res)
         setUser(res.data.data); // Set the user data in state
       } catch (error) {
         console.error("Error fetching current user:", error);
@@ -56,7 +58,51 @@ export function UserContextProvider({ children }) {
     if (!user) {
       fetchUser(); // Fetch user if not already fetched
     }
-  });
+  },[setUser]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/v1/admin/getcurrentadmin",
+
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accesstoken")}`,
+            },
+             // Include cookies (if using refresh tokens)
+          }
+        );
+        console.log(res)
+        setUser(res.data.data); // Set the user data in state
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+        setUser(null); // Clear the user state if fetching fails
+      }
+    };
+
+    if (!user) {
+      fetchUser(); // Fetch user if not already fetched
+    }
+  },[setUser]);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/v1/volunteer/allvolunteers"
+        );
+        setVolunteer(res.data.data); // Set the user data in state
+      } catch (error) {
+        console.error("Error fetching current volunteers:", error);
+        setVolunteer(null); // Clear the user state if fetching fails
+      }
+    };
+
+    if (!volunteer) {
+      fetchUser(); // Fetch user if not already fetched
+    }
+  },[setVolunteer]);
 
   // Logout function to log the user out
   const logout = async () => {

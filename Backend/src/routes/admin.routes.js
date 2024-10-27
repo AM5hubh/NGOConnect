@@ -8,7 +8,7 @@ import {
   verifyLoginOtp,
   getCurrentAdmin,
 } from "../controllers/admin.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { verifyJWT } from "../middlewares/admin.middleware.js";
 
 const router = Router();
 
@@ -19,7 +19,7 @@ router.route("/login").post(loginAdmin);
 router.route("/logout").post(logoutAdmin);
 router.route("/verifyOtp").post(verifyOtp);
 router.route("/verifyLoginOtp").post(verifyLoginOtp);
-router.route("/getcurrentadmin").post(getCurrentAdmin);
+router.route("/getcurrentadmin").get(verifyJWT,getCurrentAdmin);
 router.route("/resendOtpVerificationCode").post(resendOtpVerificationCode);
 
 export default router;

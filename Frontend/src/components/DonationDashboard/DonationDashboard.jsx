@@ -1,6 +1,7 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { Users, Heart, Trophy, Coins } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const DonationDashboard = () => {
   // Sample data - in a real app this would come from your backend
@@ -104,10 +105,10 @@ const DonationDashboard = () => {
           Together, we're making a difference. Every donation helps us connect more volunteers 
           with organizations that need them most.
         </p>
-        <button className="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold 
+        <Link to='/donate' className="bg-white text-blue-600 px-6 py-2 rounded-full font-semibold 
                          hover:bg-blue-50 transition-colors">
           Donate Now
-        </button>
+        </Link>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import React from 'react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { Users, Calendar, Building, Clock, Award, HandHeart, Target } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import VolunteerCard from '../VolunteerCard/VolunteerCard';
 
 const VolunteerDashboard = () => {
   // Sample data
@@ -184,6 +185,7 @@ const VolunteerDashboard = () => {
           </Link>
         </div>
       </div>
+      <VolunteerCard />
     </div>
   );
 };
