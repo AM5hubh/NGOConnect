@@ -46,29 +46,21 @@ function Footer() {
               </li>
               <li>
                 <a href="#" className="hover:text-blue-300">
-                  Academics
+                  NGO
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-blue-300">
-                  Admissions
+                  Volunteer
                 </a>
               </li>
               <li>
                 <a href="#" className="hover:text-blue-300">
-                  Research
+                  Donation
                 </a>
               </li>
-              <li>
-                <a href="#" className="hover:text-blue-300">
-                  Placements
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-blue-300">
-                  Alumni
-                </a>
-              </li>
+  
+    
             </ul>
           </div>
 

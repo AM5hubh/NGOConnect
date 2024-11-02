@@ -66,6 +66,31 @@ export default function Header() {
       fetchUser(); // Fetch user if not already fetched
     }
   });
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:8000/api/v1/ngouser/current",
+
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+             // Include cookies (if using refresh tokens)
+          }
+        );
+        console.log(res)
+        setUser(res.data.data); // Set the user data in state
+      } catch (error) {
+        console.error("Error fetching current user:", error);
+        setUser(null); // Clear the user state if fetching fails
+      }
+    };
+
+    if (!user) {
+      fetchUser(); // Fetch user if not already fetched
+    }
+  },[setUser]);
   const logout = async () => {
     try {
       // await axios.post(
@@ -145,6 +170,12 @@ export default function Header() {
                   className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
                 >
                   Volunteers
+                </NavLink>
+                <NavLink
+                  to="/eventcontainer"
+                  className="px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-700"
+                >
+                  Events
                 </NavLink>
               </div>
             </div>

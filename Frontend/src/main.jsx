@@ -22,12 +22,14 @@ import AdminSignup from './components/Admin/Auth/AdminSignup.jsx'
 import VolunteerForm from './components/VolunteerForm/VolunteerForm.jsx'
 import Volunteerbystatus from './components/Volunteerbystatus/Volunteerbystatus.jsx'
 import DonationForm from './components/Donation/DonationForm/DonationForm.jsx'
+import EventContainer from './components/Events/EventContainer.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='' element={<Home />} />
       <Route path="about" element={<About />} />
+      <Route path="eventcontainer" element={<EventContainer />} />
       <Route path="register" element={<Register />} />
       <Route path="donations" element={<DonationDashboard />} />
       <Route path="volunteer" element={<VolunteerDashboard />} />

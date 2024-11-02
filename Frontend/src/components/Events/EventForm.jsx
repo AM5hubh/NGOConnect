@@ -1,128 +1,142 @@
 import React, { useState } from 'react';
 
-const EventForm = ({ onSubmit, initialData = null }) => {
-  const [formData, setFormData] = useState(initialData || {
+const EventRegistrationForm = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
     title: '',
     description: '',
     date: '',
+    time: '',
     location: '',
-    category: '',
-    requiredVolunteers: '',
-    skills: '',
-    contactPerson: {
-      name: '',
-      email: '',
-      phone: ''
-    }
+    maxParticipants: '',
+    requirements: '',
+    category: ''
   });
-  
-  const [errors, setErrors] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.title) newErrors.title = 'Title is required';
-    if (!formData.description) newErrors.description = 'Description is required';
-    if (!formData.date) newErrors.date = 'Date is required';
-    if (!formData.location) newErrors.location = 'Location is required';
-    if (!formData.category) newErrors.category = 'Category is required';
-    if (!formData.requiredVolunteers) newErrors.requiredVolunteers = 'Number of volunteers is required';
-    if (!formData.contactPerson.name) newErrors['contactPerson.name'] = 'Contact name is required';
-    if (!formData.contactPerson.email) newErrors['contactPerson.email'] = 'Contact email is required';
-    if (!formData.contactPerson.phone) newErrors['contactPerson.phone'] = 'Contact phone is required';
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name.startsWith('contactPerson.')) {
-      const field = name.split('.')[1];
-      setFormData(prev => ({
-        ...prev,
-        contactPerson: {
-          ...prev.contactPerson,
-          [field]: value
-        }
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        [name]: value
-      }));
-    }
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    setLoading(true);
+    setError('');
 
-    setIsSubmitting(true);
     try {
-      await onSubmit(formData);
-    } catch (error) {
-      console.error('Error submitting event:', error);
+      const response = await fetch('http://localhost:8000/api/v1/event/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Something went wrong');
+      }
+
+      setFormData({
+        title: '',
+        description: '',
+        date: '',
+        time: '',
+        location: '',
+        maxParticipants: '',
+        requirements: '',
+        category: '',
+        requiredVolunteers:''
+      });
+
+      alert('Event created successfully!');
+
+    } catch (err) {
+      setError(err.message);
     } finally {
-      setIsSubmitting(false);
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Event Title
-        </label>
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Enter event title"
-        />
-        {errors.title && (
-          <p className="text-red-500 text-sm mt-1">{errors.title}</p>
-        )}
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-800">Create New Event</h2>
       </div>
 
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Description
-        </label>
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          rows="4"
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Enter event description"
-        />
-        {errors.description && (
-          <p className="text-red-500 text-sm mt-1">{errors.description}</p>
-        )}
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Event Date
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded">
+          {error}
+        </div>
+      )}
+      
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Event Title
           </label>
           <input
-            type="date"
-            name="date"
-            value={formData.date}
+            type="text"
+            name="title"
+            value={formData.title}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            required
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Enter event title"
           />
-          {errors.date && (
-            <p className="text-red-500 text-sm mt-1">{errors.date}</p>
-          )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Description
+          </label>
+          <textarea
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-32"
+            placeholder="Describe your event"
+          />
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Date
+            </label>
+            <input
+              type="date"
+              name="date"
+              value={formData.date}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Time
+            </label>
+            <input
+              type="time"
+              name="time"
+              value={formData.time}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
             Location
           </label>
           <input
@@ -130,133 +144,81 @@ const EventForm = ({ onSubmit, initialData = null }) => {
             name="location"
             value={formData.location}
             onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Enter event location"
+            required
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Event location"
           />
-          {errors.location && (
-            <p className="text-red-500 text-sm mt-1">{errors.location}</p>
-          )}
-        </div>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Category
-          </label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          >
-            <option value="">Select Category</option>
-            <option value="Education">Education</option>
-            <option value="Healthcare">Healthcare</option>
-            <option value="Environment">Environment</option>
-            <option value="Social Welfare">Social Welfare</option>
-            <option value="Other">Other</option>
-          </select>
-          {errors.category && (
-            <p className="text-red-500 text-sm mt-1">{errors.category}</p>
-          )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Required Volunteers
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Maximum Participants
+            </label>
+            <input
+              type="number"
+              name="maxParticipants"
+              value={formData.maxParticipants}
+              onChange={handleChange}
+              min="1"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter max participants"
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              VOLUNTEERS
+            </label>
+            <input
+              type="number"
+              name="requiredVolunteers"
+              value={formData.requiredVolunteers}
+              onChange={handleChange}
+              min="1"
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter max VOLUNTEERS"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Category
+            </label>
+            <input
+              type="text"
+              name="category"
+              value={formData.category}
+              onChange={handleChange}
+              required
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Event category"
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-700">
+            Requirements
           </label>
-          <input
-            type="number"
-            name="requiredVolunteers"
-            value={formData.requiredVolunteers}
+          <textarea
+            name="requirements"
+            value={formData.requirements}
             onChange={handleChange}
-            min="1"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Number of volunteers needed"
+            className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-24"
+            placeholder="List any special requirements or items participants should bring"
           />
-          {errors.requiredVolunteers && (
-            <p className="text-red-500 text-sm mt-1">{errors.requiredVolunteers}</p>
-          )}
-        </div>
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          Required Skills
-        </label>
-        <input
-          type="text"
-          name="skills"
-          value={formData.skills}
-          onChange={handleChange}
-          className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Enter required skills (comma-separated)"
-        />
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Contact Person Name
-          </label>
-          <input
-            type="text"
-            name="contactPerson.name"
-            value={formData.contactPerson.name}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Contact person name"
-          />
-          {errors['contactPerson.name'] && (
-            <p className="text-red-500 text-sm mt-1">{errors['contactPerson.name']}</p>
-          )}
         </div>
 
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Contact Email
-          </label>
-          <input
-            type="email"
-            name="contactPerson.email"
-            value={formData.contactPerson.email}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Contact email"
-          />
-          {errors['contactPerson.email'] && (
-            <p className="text-red-500 text-sm mt-1">{errors['contactPerson.email']}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Contact Phone
-          </label>
-          <input
-            type="tel"
-            name="contactPerson.phone"
-            value={formData.contactPerson.phone}
-            onChange={handleChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            placeholder="Contact phone"
-          />
-          {errors['contactPerson.phone'] && (
-            <p className="text-red-500 text-sm mt-1">{errors['contactPerson.phone']}</p>
-          )}
-        </div>
-      </div>
-
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSubmitting ? 'Creating Event...' : (initialData ? 'Update Event' : 'Create Event')}
-      </button>
-    </form>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-blue-400"
+        >
+          {loading ? 'Creating Event...' : 'Create Event'}
+        </button>
+      </form>
+    </div>
   );
 };
 
-export default EventForm;
+export default EventRegistrationForm;

@@ -5,11 +5,11 @@ const eventSchema = new Schema({
     type: String,
     required: true,
   },
-  ngoId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'NGO',
-    required: true,
-  },
+  // ngoId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: 'NGO',
+  //   required: true,
+  // },
   description: {
     type: String,
     required: true,
@@ -29,7 +29,7 @@ const eventSchema = new Schema({
   },
   requiredVolunteers: {
     type: Number,
-    required: true,
+    required: false,
   },
   registeredVolunteers: [{
     type: mongoose.Schema.Types.ObjectId,

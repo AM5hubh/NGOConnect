@@ -318,6 +318,11 @@ const getCurrentAdmin = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, req.admin, "User fetched successfully"));
 });
 
+const getAllAdmin = asyncHandler(async (req, res) => {
+  const users = await Admin.find({}, '-password -refreshToken'); // Fetch all users from the database, excluding password and refresh token
+  return res.status(200).json(new ApiResponse(200, users, "All users fetched successfully"));
+});
+
 export {
   registerAdmin,
   loginAdmin,
@@ -326,5 +331,6 @@ export {
   verifyOtp,
   resendOtpVerificationCode,
   verifyLoginOtp,
-  getCurrentAdmin
+  getCurrentAdmin,
+  getAllAdmin
 };

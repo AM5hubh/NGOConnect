@@ -34,7 +34,7 @@ const Home = () => {
       {/* <DonationForm /> */}
       <CreateEvent />
       {/* <EventCard /> */}
-      <Events />
+      {/* <Events /> */}
       {/* <GoogleTranslate /> */}
     </div>
   );

@@ -4,13 +4,13 @@ import { Event } from "../models/event.model.js";
 const createEvent = async (req, res) => {
   try {
     // Verify if the user is an NGO
-    if (req.user.role !== "ngo") {
-      return res.status(403).json({ message: "Only NGOs can create events" });
-    }
+    // if (req.user.role !== "ngo") {
+    //   return res.status(403).json({ message: "Only NGOs can create events" });
+    // }
 
     const eventData = {
       ...req.body,
-      ngoId: req.user.id,
+      // ngoId: "",
       status: "upcoming",
     };
 
@@ -33,7 +33,7 @@ const createEvent = async (req, res) => {
 // Get NGO's events
 const getNGOEvents = async (req, res) => {
   try {
-    const events = await Event.find({ ngoId: req.user.id }).sort({ date: -1 });
+    const events = await Event.find({});
 
     res.status(200).json({
       success: true,

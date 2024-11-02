@@ -11,6 +11,8 @@ import {
     Trash2
 } from 'lucide-react';
 import VolunteerDashboard from '../Volunteerbystatus/Volunteerbystatus';
+import Alladmins from '../Alladmins/Alladmins';
+import NGOCards from '../NGOcards/NGOcards';
 
 const AdminDashboard = () => {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -69,31 +71,7 @@ const AdminDashboard = () => {
 
     const renderNGOsContent = () => (
         <div className="bg-white rounded-lg shadow">
-            <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-lg font-semibold">NGOs List</h2>
-                    <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add NGO
-                    </button>
-                </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Location</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Volunteers</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                            {/* Add your NGOs data here */}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <NGOCards />
         </div>
     );
 
@@ -114,31 +92,7 @@ const AdminDashboard = () => {
 
     const renderAdminsContent = () => (
         <div className="bg-white rounded-lg shadow">
-            <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
-                    <h2 className="text-lg font-semibold">Admins List</h2>
-                    <button className="flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add Admin
-                    </button>
-                </div>
-                <div className="overflow-x-auto">
-                    <table className="w-full">
-                        <thead className="bg-gray-50">
-                            <tr>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Role</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Last Active</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-gray-200">
-                            {/* Add your admins data here */}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <Alladmins />
         </div>
     );
 

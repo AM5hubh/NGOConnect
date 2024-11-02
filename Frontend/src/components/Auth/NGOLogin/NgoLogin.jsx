@@ -24,9 +24,11 @@ const NgoLogin = () => {
         formData
       );
       localStorage.setItem("accessToken", res.data.data.accessToken);
+      localStorage.setItem("id", res.data.data.ngouser._id);
+      // console.log(res)
       toast.success("Login successful!");
       // navigate("/");
-    //   window.location = "/";
+      window.location = "/";
     } catch (err) {
       const errorMessage =
         err.response?.data.messagetext ||

@@ -26,7 +26,7 @@ const userSchema = new Schema(
     },
     volunteer: { type: Boolean, default: false },
     verified: { type: Boolean, default: false },
-    applyvolunteer: { type: Boolean, default: false },
+    applyvolunteer: { type: Boolean, default: true },
     // role: {
     //   type: String,
     //   trim: true,
