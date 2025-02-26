@@ -1,1 +1,17 @@
-*.env
+# Ignore node_modules in both frontend and backend
+Backend/node_modules/
+Frontend/node_modules/
+
+# Ignore environment files
+Backend/.env
+Frontend/.env
+
+# Ignore log files
+*.log
+logs/
+
+# Ignore editor/OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

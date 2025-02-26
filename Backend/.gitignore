@@ -11,24 +11,17 @@ package-lock.json
 .env.sample
 
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 
-# Editor settings
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-
-# OS Files
+# OS/Editor-specific files
 .DS_Store
 Thumbs.db
+.vscode/
+.idea/
 
 # Build files
 dist/
@@ -38,4 +31,5 @@ build/
 # Public temp files
 public/temp/
 
-# Ignore local Git
+# Ignore backend compiled files
+temp/
