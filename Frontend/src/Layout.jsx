@@ -89,9 +89,7 @@ function Layout() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-
       <Outlet />
-
       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       <Footer />
     </div>
