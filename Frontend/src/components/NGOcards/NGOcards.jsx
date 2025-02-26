@@ -10,7 +10,7 @@ const NGOCards = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/ngouser/getallngos');
+        const response = await fetch('https://ngoconnect.onrender.com/api/v1/ngouser/getallngos');
         const data = await response.json();
         setArticles(data.data);
       } catch (err) {
