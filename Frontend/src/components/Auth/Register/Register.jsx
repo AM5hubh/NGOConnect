@@ -41,7 +41,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/ngouser/register",
+        `${import.meta.env.VITE_RENDER_PATH}/ngouser/register`,
         data,
         {
           headers: {

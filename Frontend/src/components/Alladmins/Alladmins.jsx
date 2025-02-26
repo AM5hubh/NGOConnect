@@ -14,7 +14,7 @@ const Alladmins = () => {
 
   const fetchAdmins = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/admin/getalladmin');
+      const response = await axios.get(`${import.meta.env.VITE_RENDER_PATH}/admin/getalladmin`);
       setAdmins(response.data.data);
       setLoading(false);
     } catch (err) {

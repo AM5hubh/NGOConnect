@@ -21,8 +21,8 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/users/login" ||
-          "http://localhost:8000/api/v1/ngouser/login",
+        `${import.meta.env.VITE_RENDER_PATH}/users/login` ||
+          `${import.meta.env.VITE_RENDER_PATH}/ngouser/login`,
         formData
       );
       localStorage.setItem("accessToken", res.data.data.accessToken);

@@ -28,7 +28,7 @@ const Login = () => {
     console.log("Login data:", formData);
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/admin/login",
+        `${import.meta.env.VITE_RENDER_PATH}/admin/login`,
         formData
       );
       console.log(res);
@@ -42,7 +42,7 @@ const Login = () => {
       setShowOtpModal(true);
       // setShowOtpModal(true)
     } catch (err) {
-        console.log(err.response.data.messagetext)
+      console.log(err.response.data.messagetext);
       toast.error(err.response.data.messagetext);
     }
     // Here you would typically send the data to your backend for authentication
@@ -53,22 +53,21 @@ const Login = () => {
       const userId = localStorage.getItem("userId");
       const email = localStorage.getItem("email");
       const res = await axios.post(
-        "http://localhost:8000/api/v1/admin/verifyLoginOtp",
+        `${import.meta.env.VITE_RENDER_PATH}/admin/verifyLoginOtp`,
         { email, userId, otp }
       );
       console.log(res);
       localStorage.setItem("accessToken", res.data.accessToken);
       localStorage.setItem("admin", res.data.admin.admin);
-    //   localStorage.setItem("isAdmin", res.data.admin.admin);
+      //   localStorage.setItem("isAdmin", res.data.admin.admin);
       localStorage.removeItem("userId");
       localStorage.removeItem("email");
       toast.success(res.data.message);
       setShowOtpModal(false);
       window.location = "/private/admindashboard";
-    //   navigate("/login");
-      
+      //   navigate("/login");
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   };
   const togglePasswordVisibility = () => {

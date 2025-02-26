@@ -24,7 +24,7 @@ const Signup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/users/register",
+        `${import.meta.env.VITE_RENDER_PATH}/users/register`,
         formData
       );
       console.log(res)
@@ -51,7 +51,7 @@ const Signup = () => {
     try {
       const userId = localStorage.getItem("userId");
       const res = await axios.post(
-        "http://localhost:8000/api/v1/users/verifyOtp",
+        `${import.meta.env.VITE_RENDER_PATH}/users/verifyOtp`,
         { userId, otp }
       );
       console.log(res);

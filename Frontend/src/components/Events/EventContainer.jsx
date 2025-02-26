@@ -14,7 +14,7 @@ const EventContainer = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/v1/event/get');
+      const response = await axios.get(`${import.meta.env.VITE_RENDER_PATH}/event/get`);
       console.log(response)
       if (response.data.success) {
         setEvents(response.data.data);

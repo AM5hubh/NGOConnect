@@ -48,7 +48,7 @@ const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Check for email and password in the request body
-  if (!email || !password) {
+  if (!email && !password) {
     return res
       .status(400)
       .json(new ApiError(400, "Email and password are required"));

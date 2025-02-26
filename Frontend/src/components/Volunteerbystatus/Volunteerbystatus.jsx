@@ -45,7 +45,7 @@ const VolunteerDashboard = () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const response = await axios.get(`http://localhost:8000/api/v1/volunteer/getbystatus`, {
+      const response = await axios.get(`${import.meta.env.VITE_RENDER_PATH}/volunteer/getbystatus`, {
         params: { status },
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -62,7 +62,7 @@ const VolunteerDashboard = () => {
     try {
       const token = localStorage.getItem('token');
       await axios.patch(
-        `http://localhost:8000/api/v1/volunteer/getbystatus/${volunteerId}/status`,
+        `${import.meta.env.VITE_RENDER_PATH}/volunteer/getbystatus/${volunteerId}/status`,
         { status: newStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

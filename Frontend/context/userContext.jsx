@@ -13,7 +13,7 @@ export function UserContextProvider({ children }) {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/users/current-user",
+          `${import.meta.env.VITE_RENDER_PATH}/users/current-user`,
 
           {
             headers: {
@@ -38,7 +38,7 @@ export function UserContextProvider({ children }) {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/ngouser/current",
+          `${import.meta.env.VITE_RENDER_PATH}/ngouser/current`,
 
           {
             headers: {
@@ -64,7 +64,7 @@ export function UserContextProvider({ children }) {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/admin/getcurrentadmin",
+          `${import.meta.env.VITE_RENDER_PATH}/admin/getcurrentadmin`,
 
           {
             headers: {
@@ -90,7 +90,7 @@ export function UserContextProvider({ children }) {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/volunteer/allvolunteers"
+          `${import.meta.env.VITE_RENDER_PATH}/volunteer/allvolunteers`
         );
         setVolunteer(res.data.data); // Set the user data in state
       } catch (error) {
@@ -108,7 +108,7 @@ export function UserContextProvider({ children }) {
   const logout = async () => {
     try {
       // await axios.post(
-      //   "http://localhost:8000/api/v1/users/logout", 
+      //   "${import.meta.env.VITE_RENDER_PATH}/users/logout", 
       //   {}, 
       //   { headers: {
       //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

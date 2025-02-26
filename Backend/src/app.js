@@ -49,7 +49,7 @@ app.use("/api/v1/users", userRouter)
 app.use("/api/v1/ngouser", ngoRouter) 
 app.use("/api/v1/volunteer", volunteerRouter)
 app.use("/api/v1/event", eventRouter)
-//http://localhost:8000/api/v1/users/register
+//${import.meta.env.VITE_RENDER_PATH}/users/register
 
 
 export {app}

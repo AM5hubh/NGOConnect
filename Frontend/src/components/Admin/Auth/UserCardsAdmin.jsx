@@ -12,7 +12,7 @@ const UserCardsAdmin = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/v1/users/allusers"
+          `${import.meta.env.VITE_RENDER_PATH}/users/allusers`
         ); // Your API endpoint
         setUsers(response.data.data); // Assuming your ApiResponse structure has 'data' field
       } catch (err) {
@@ -29,7 +29,7 @@ const UserCardsAdmin = () => {
   const verifyUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/v1/users/verify`, // Your verify endpoint
+        `${import.meta.env.VITE_RENDER_PATH}/users/verify`, // Your verify endpoint
         { userId } // Send user ID for verification
       );
 

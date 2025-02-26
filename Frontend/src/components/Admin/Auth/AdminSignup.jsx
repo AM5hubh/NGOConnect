@@ -23,7 +23,7 @@ const AdminSignup = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/admin/register",
+        `${import.meta.env.VITE_RENDER_PATH}/admin/register`,
         formData
       );
       localStorage.setItem("userId", res.data.date.userId);
@@ -49,7 +49,7 @@ const AdminSignup = () => {
       const userId = localStorage.getItem("userId");
       const email = localStorage.getItem("email");
       const res = await axios.post(
-        "http://localhost:8000/api/v1/admin/verifyOtp",
+        `${import.meta.env.VITE_RENDER_PATH}/admin/verifyOtp`,
         { userId, email, otp }
       );
       console.log(res);

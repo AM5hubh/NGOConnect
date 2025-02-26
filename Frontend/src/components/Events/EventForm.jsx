@@ -28,7 +28,7 @@ const EventRegistrationForm = () => {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/event/create', {
+      const response = await fetch(`${import.meta.env.VITE_RENDER_PATH}/event/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

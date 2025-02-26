@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Search, X, MapPin, Phone, Mail, Calendar, Clock, Badge, AlertCircle } from 'lucide-react';
 
+
 const VolunteerDirectory = () => {
   const [volunteers, setVolunteers] = useState([]);
   const [error, setError] = useState(null);
@@ -10,8 +11,9 @@ const VolunteerDirectory = () => {
   useEffect(() => {
     const fetchVolunteers = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/v1/volunteer/allvolunteers');
+        const response = await fetch(`${import.meta.env.VITE_RENDER_PATH}/volunteer/allvolunteers`);
         const data = await response.json();
+        console.log(data)
         setVolunteers(data.data);
       } catch (err) {
         setError('Failed to fetch Volunteers');

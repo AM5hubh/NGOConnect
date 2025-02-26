@@ -11,7 +11,7 @@ const VolunteerForm = () => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/users/current-user",
+          `${import.meta.env.VITE_RENDER_PATH}/users/current-user`,
 
           {
             headers: {
@@ -95,7 +95,7 @@ const VolunteerForm = () => {
     setSubmitStatus('submitting');
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/volunteer/register', formData);
+      const response = await axios.post(`${import.meta.env.VITE_RENDER_PATH}/volunteer/register`, formData);
       setSubmitStatus('success');
       console.log('Registration successful:', response.data);
     } catch (error) {

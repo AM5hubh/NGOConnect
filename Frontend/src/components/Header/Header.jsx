@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 
 export default function Header() {
   // const [user,setUser] = useState(null)
-  // const currentuser = axios.get("http://localhost:8000/api/v1/users/current-user").then(({data}) =>{ setUser(data)})
+  // const currentuser = axios.get("${import.meta.env.VITE_RENDER_PATH}/users/current-user").then(({data}) =>{ setUser(data)})
   // const { logout } = useContext(UserContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -21,7 +21,7 @@ export default function Header() {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/users/current-user",
+          `${import.meta.env.VITE_RENDER_PATH}/users/current-user`,
 
           {
             headers: {
@@ -45,7 +45,7 @@ export default function Header() {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/admin/getcurrentadmin",
+          `${import.meta.env.VITE_RENDER_PATH}/admin/getcurrentadmin`,
 
           {
             headers: {
@@ -70,7 +70,7 @@ export default function Header() {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:8000/api/v1/ngouser/current",
+          `${import.meta.env.VITE_RENDER_PATH}/ngouser/current`,
 
           {
             headers: {
@@ -94,7 +94,7 @@ export default function Header() {
   const logout = async () => {
     try {
       // await axios.post(
-      //   "http://localhost:8000/api/v1/users/logout",
+      //   "${import.meta.env.VITE_RENDER_PATH}/users/logout",
       //   {},
       //   { headers: {
       //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,

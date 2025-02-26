@@ -10,7 +10,7 @@
     useEffect(() => {
         const fetchNGODetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/api/v1/ngouser/${id}`);
+            const response = await axios.get(`${import.meta.env.VITE_RENDER_PATH}/ngouser/${id}`);
             setNGO(response.data);
         } catch (err) {
             setError('Failed to load NGO details. Please try again later.');
