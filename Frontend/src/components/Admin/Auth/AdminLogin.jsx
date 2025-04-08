@@ -49,11 +49,12 @@ const Login = () => {
   };
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
+    //${import.meta.env.VITE_RENDER_PATH}
     try {
       const userId = localStorage.getItem("userId");
       const email = localStorage.getItem("email");
       const res = await axios.post(
-        `${import.meta.env.VITE_RENDER_PATH}/admin/verifyLoginOtp`,
+        `http://localhost:8000/api/v1/admin/verifyLoginOtp`,
         { email, userId, otp }
       );
       console.log(res);
@@ -65,8 +66,9 @@ const Login = () => {
       toast.success(res.data.message);
       setShowOtpModal(false);
       window.location = "/private/admindashboard";
-      //   navigate("/login");
+      navigate("/login");
     } catch (err) {
+      toast.error(err.response.data.messagetext);
       console.log(err);
     }
   };

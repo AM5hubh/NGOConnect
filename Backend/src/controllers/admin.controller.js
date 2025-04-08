@@ -1,7 +1,7 @@
-  import { asyncHandler } from "../utils/asyncHandler.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Admin } from "../models/admin.model.js";
-import nodemailer from "nodemailer"
+import nodemailer from "nodemailer";
 import bcrypt from "bcrypt";
 import UserOtpVerification from "../models/user.otpverification.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
@@ -171,7 +171,8 @@ const sendOtpVerificationEmail = async ({ _id, email }, res) => {
 
 const verifyOtp = async (req, res) => {
   try {
-    let { userId,email, otp } = req.body;
+    let { userId, email, otp } = req.body;
+    console.log(otp);
 
     // Check if userId or otp is missing
     if (!userId || !otp) {
@@ -265,7 +266,14 @@ const verifyLoginOtp = asyncHandler(async (req, res) => {
   }
 
   // Compare the provided OTP with the hashed OTP
-  const validOtp = bcrypt.compare(otp, hashedOtp);
+  // const validOtp = bcrypt.compare(otp, hashedOtp);
+  // // If the OTP is invalid
+  // if (!validOtp) {
+  //   return res
+  //     .status(400)
+  //     .json(new ApiError(400, "Invalid OTP. Please check your inbox."));
+  // }
+  const validOtp = await bcrypt.compare(otp, hashedOtp);
   // If the OTP is invalid
   if (!validOtp) {
     return res
@@ -274,9 +282,8 @@ const verifyLoginOtp = asyncHandler(async (req, res) => {
   }
 
   // If the OTP is valid, log the admin in by generating tokens
-  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
-    userId
-  );
+  const { accessToken, refreshToken } =
+    await generateAccessAndRefreshTokens(userId);
 
   // Clear OTP record
   await UserOtpVerification.deleteMany({ userId });
@@ -319,8 +326,10 @@ const getCurrentAdmin = asyncHandler(async (req, res) => {
 });
 
 const getAllAdmin = asyncHandler(async (req, res) => {
-  const users = await Admin.find({}, '-password -refreshToken'); // Fetch all users from the database, excluding password and refresh token
-  return res.status(200).json(new ApiResponse(200, users, "All users fetched successfully"));
+  const users = await Admin.find({}, "-password -refreshToken"); // Fetch all users from the database, excluding password and refresh token
+  return res
+    .status(200)
+    .json(new ApiResponse(200, users, "All users fetched successfully"));
 });
 
 export {
@@ -332,5 +341,5 @@ export {
   resendOtpVerificationCode,
   verifyLoginOtp,
   getCurrentAdmin,
-  getAllAdmin
+  getAllAdmin,
 };

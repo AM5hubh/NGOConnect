@@ -54,7 +54,7 @@ export default function Header() {
             // Include cookies (if using refresh tokens)
           }
         );
-        console.log(res)
+        console.log(res);
         setUser(res.data.data); // Set the user data in state
       } catch (error) {
         console.error("Error fetching current user:", error);
@@ -76,10 +76,10 @@ export default function Header() {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },
-             // Include cookies (if using refresh tokens)
+            // Include cookies (if using refresh tokens)
           }
         );
-        console.log(res)
+        console.log(res);
         setUser(res.data.data); // Set the user data in state
       } catch (error) {
         console.error("Error fetching current user:", error);
@@ -90,7 +90,7 @@ export default function Header() {
     if (!user) {
       fetchUser(); // Fetch user if not already fetched
     }
-  },[setUser]);
+  }, [setUser]);
   const logout = async () => {
     try {
       // await axios.post(
@@ -103,6 +103,8 @@ export default function Header() {
 
       // Clear user data and localStorage tokens
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("role");
+      localStorage.removeItem("admin");
       toast.success("User logged out successfully");
       setUser(null); // Reset the user state after logout
       window.location = "/";
