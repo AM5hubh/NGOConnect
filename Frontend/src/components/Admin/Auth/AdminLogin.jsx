@@ -49,12 +49,12 @@ const Login = () => {
   };
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
-    //${import.meta.env.VITE_RENDER_PATH}
+    //
     try {
       const userId = localStorage.getItem("userId");
       const email = localStorage.getItem("email");
       const res = await axios.post(
-        `http://localhost:8000/api/v1/admin/verifyLoginOtp`,
+        `${import.meta.env.VITE_RENDER_PATH}/admin/verifyLoginOtp`,
         { email, userId, otp }
       );
       console.log(res);
