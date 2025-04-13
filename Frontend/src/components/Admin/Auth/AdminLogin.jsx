@@ -34,10 +34,6 @@ const Login = () => {
       console.log(res);
       localStorage.setItem("userId", res.data.date.userId);
       localStorage.setItem("email", res.data.date.email);
-      //   localStorage.setItem("accesstoken", res.data.accessToken);
-      //   localStorage.setItem("isAdmin", res.data.admin.admin);
-      //   window.location = "/private/admindashboard";
-      // navigate("/");
       toast.success(res.data.message);
       setShowOtpModal(true);
       // setShowOtpModal(true)
